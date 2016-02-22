@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.vin_s.cargo.search"
+    tools:showIn="@layout/activity_search"
+    android:background="#ffffff">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="480px"
+        android:id="@+id/imageView"
+        android:background="@drawable/search_banner"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Destination:"
+            android:id="@+id/searchDestination"
+            android:textColor="#6b6868"
+            android:textSize="50px"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_below="@+id/originPicker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:id="@+id/originPicker"
+            android:spinnerMode="dropdown"
+            android:entries="@array/search_origin"
+            android:layout_below="@+id/imageView"
+            android:layout_alignLeft="@+id/destinationPicker"
+            android:layout_alignStart="@+id/destinationPicker"
+            android:layout_marginTop="46dp"
+            android:background="@drawable/origin_spinner"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="70px"
+            android:id="@+id/destinationPicker"
+            android:spinnerMode="dropdown"
+            android:entries="@array/search_origin"
+            android:layout_below="@+id/originPicker"
+            android:layout_toRightOf="@+id/searchDestination"
+            android:layout_toEndOf="@+id/searchDestination"
+            android:layout_marginLeft="46dp"
+            android:layout_marginStart="46dp"
+            android:background="@drawable/origin_spinner"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Origin:"
+        android:id="@+id/searchOrigin"
+        android:textColor="#6b6868"
+        android:textSize="50px"
+        android:layout_alignTop="@+id/originPicker"
+        android:layout_alignLeft="@+id/searchDestination"
+        android:layout_alignStart="@+id/searchDestination" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Departure Date"
+        android:id="@+id/departure_button"
+        android:layout_below="@+id/destinationPicker"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/login_button"
+        android:layout_below="@+id/departure_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#38ade8" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password"
+        android:id="@+id/forgot_password_button"
+        android:background="#cfd0d1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/login_button" />
+</RelativeLayout>

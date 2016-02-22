@@ -30,7 +30,8 @@
         android:id="@+id/search_button"
         android:layout_gravity="center_horizontal"
         android:background="#dddd"
-        android:textColor="#444444"/>
+        android:textColor="#444444"
+        android:onClick="startSearch"/>
     <TextView
         android:layout_width="220dp"
         android:layout_height="40dp"

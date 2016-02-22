@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Cargo</string>
+    <string name="title_activity_search">search</string>
+    <string-array name="search_origin">
+        <item>America</item>
+        <item>China</item>
+        <item>Singapore</item>
+        <item>Stockholm</item>
+    </string-array>
+    <string name="origin_default">Any</string>
 </resources>
