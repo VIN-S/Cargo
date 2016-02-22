@@ -2,6 +2,7 @@
     <string name="app_name">Cargo</string>
     <string name="title_activity_search">search</string>
     <string-array name="search_origin">
+        <item>Any</item>
         <item>America</item>
         <item>China</item>
         <item>Singapore</item>
