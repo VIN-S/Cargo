@@ -15,7 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".search"
             android:label="@string/title_activity_search"
@@ -25,10 +24,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vin_s.cargo.MainActivity" />
         </activity>
-
-        <activity android:name=".PostActivity" >
-
-        </activity>
+        <activity android:name=".PostActivity"></activity>
+        <activity android:name=".MyProfile"></activity>
     </application>
 
 </manifest>
