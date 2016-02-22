@@ -15,6 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".search"
             android:label="@string/title_activity_search"
@@ -23,6 +24,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vin_s.cargo.MainActivity" />
+        </activity>
+
+        <activity android:name=".PostActivity" >
+
         </activity>
     </application>
 
