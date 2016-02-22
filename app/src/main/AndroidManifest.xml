@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vin_s.cargo">
+    package="com.example.vin_s.cargo" >
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,13 +19,20 @@
             android:name=".search"
             android:label="@string/title_activity_search"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vin_s.cargo.MainActivity" />
         </activity>
+
         <activity android:name=".PostActivity"></activity>
         <activity android:name=".MyProfile"></activity>
+
+        <activity android:name=".resultList" >
+        </activity>
+        <activity android:name=".postPage" >
+        </activity>
+
     </application>
 
 </manifest>
