@@ -19,4 +19,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, search.class);
         startActivity(intent);
     }
+
+    /** Called when the user clicks the post button */
+    public void startPost(View view) {
+        Intent intent = new Intent(this, PostActivity.class);
+        startActivity(intent);
+    }
+
+    /** Called when the user clicks the log in button */
+    public void logIn(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }
