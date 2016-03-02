@@ -24,7 +24,7 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="300dp">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -159,11 +159,89 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Slogan:  "
+                    android:text="Origin:  "
                     android:textColor="#000000"
                     android:id="@+id/postOrigin" />
 
-                <EditText android:id="@+id/post_origin_edit"
+                <Spinner
+                    android:layout_marginTop="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="38dp"
+                    android:id="@+id/originPicker"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/search_origin"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignLeft="@+id/destinationPicker"
+                    android:layout_alignStart="@+id/destinationPicker"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#aaaaaa" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                tools:context="com.example.vin_s.cargo.PostActivity"
+                android:orientation="horizontal"
+                android:background="#ffffff"
+                >
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Destination:  "
+                    android:textColor="#000000"
+                    android:id="@+id/postDestination" />
+
+                <Spinner
+                    android:layout_marginTop="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="38dp"
+                    android:id="@+id/destinationPicker"
+                    android:spinnerMode="dropdown"
+                    android:entries="@array/search_origin"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignLeft="@+id/destinationPicker"
+                    android:layout_alignStart="@+id/destinationPicker"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#aaaaaa" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                tools:context="com.example.vin_s.cargo.PostActivity"
+                android:orientation="horizontal"
+                android:background="#ffffff"
+                >
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Departure Date:  "
+                    android:textColor="#000000"
+                    android:id="@+id/postDepartureDate" />
+
+                <EditText android:id="@+id/post_departure_date_edit"
                     android:layout_marginTop="15dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -177,6 +255,71 @@
                 android:layout_height="2dp"
                 android:background="#aaaaaa" />
 
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                tools:context="com.example.vin_s.cargo.PostActivity"
+                android:orientation="horizontal"
+                android:background="#ffffff"
+                >
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Number of Seats:  "
+                    android:textColor="#000000"
+                    android:id="@+id/postNumberOfSeats" />
+
+                <EditText android:id="@+id/post_number_of_seats_edit"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="38dp"
+                    android:background="#eeeeee"/>
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#aaaaaa" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                tools:context="com.example.vin_s.cargo.PostActivity"
+                android:orientation="horizontal"
+                android:background="#ffffff"
+                >
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Seats Left:  "
+                    android:textColor="#000000"
+                    android:id="@+id/postSeatsLeft" />
+
+                <EditText android:id="@+id/post_seats_left_edit"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="38dp"
+                    android:background="#eeeeee"/>
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#aaaaaa" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
