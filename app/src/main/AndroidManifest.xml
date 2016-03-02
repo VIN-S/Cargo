@@ -29,10 +29,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vin_s.cargo.MainActivity" />
         </activity>
-        <activity android:name=".PostActivity" />
-        <activity android:name=".MyProfile" />
-        <activity android:name=".resultList"></activity>
-        <activity android:name=".postPage"></activity>
+        <activity android:name=".PostActivity"
+                  android:theme="@style/AppThemeForSignIn"/>
+
+        <activity android:name=".MyProfile"
+            android:theme="@style/AppThemeForSignIn"/>
+
+        <activity android:name=".resultList"
+            android:theme="@style/AppThemeForSignIn"></activity>
+
+        <activity android:name=".postPage"
+            android:theme="@style/AppThemeForSignIn"></activity>
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
