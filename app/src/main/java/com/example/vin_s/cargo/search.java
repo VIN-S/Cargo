@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.AndroidCharacter;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,21 +17,23 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-public class search extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class search extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     Spinner spinner;
-//    private DatePicker datePicker;
-//    private Calendar calendar;
-//    private TextView dateView;
-//    private int year, month, day;
+    private DatePickerDialog fromDatePickerDialog;
+    private SimpleDateFormat dateFormatter;
+    private EditText fromDateEtxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +41,17 @@ public class search extends AppCompatActivity implements AdapterView.OnItemSelec
         setContentView(R.layout.activity_search);
 
         Spinner spinner = (Spinner) findViewById(R.id.originPicker);
-// Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.search_origin, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-//        calendar = Calendar.getInstance();
-//        year = calendar.get(Calendar.YEAR);
-//
-//        month = calendar.get(Calendar.MONTH);
-//        day = calendar.get(Calendar.DAY_OF_MONTH);
-//        showDate(year, month + 1, day);
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        findViewsById();
+        setDateTimeField();
 
     }
 
@@ -66,42 +66,40 @@ public class search extends AppCompatActivity implements AdapterView.OnItemSelec
 
     }
 
-//    @SuppressWarnings("deprecation")
-//    public void setDate(View view) {
-//        showDialog(999);
-//        Toast.makeText(getApplicationContext(), "ca", Toast.LENGTH_SHORT)
-//                .show();
-//    }
-//
-//    @Override
-//    protected Dialog onCreateDialog(int id) {
-//        // TODO Auto-generated method stub
-//        if (id == 999) {
-//            return new DatePickerDialog(this, myDateListener, year, month, day);
-//        }
-//        return null;
-//    }
-//
-//    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-//        @Override
-//        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-//            // TODO Auto-generated method stub
-//            // arg1 = year
-//            // arg2 = month
-//            // arg3 = day
-//            showDate(arg1, arg2+1, arg3);
-//        }
-//    };
-//
-//    private void showDate(int year, int month, int day) {
-//        dateView.setText(new StringBuilder().append(day).append("/")
-//                .append(month).append("/").append(year));
-//    }
-//
+    private void findViewsById() {
+        fromDateEtxt = (EditText) findViewById(R.id.departureDate);
+        fromDateEtxt.setInputType(InputType.TYPE_NULL);
+        fromDateEtxt.requestFocus();
+
+    }
+
+    private void setDateTimeField() {
+        fromDateEtxt.setOnClickListener(this);
+
+        Calendar newCalendar = Calendar.getInstance();
+        fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+    }
+
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
-////        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
 //        return true;
 //    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == fromDateEtxt) {
+            fromDatePickerDialog.show();
+        }
+    }
 }
