@@ -79,7 +79,7 @@
         android:textColor="#6b6868"
         android:layout_weight=".5"
         android:hint="@string/from_date"
-        android:layout_above="@+id/login_button"
+        android:layout_alignTop="@+id/departureDateText"
         android:layout_alignLeft="@+id/destinationPicker"
         android:layout_alignStart="@+id/destinationPicker" />
 
