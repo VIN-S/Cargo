@@ -430,14 +430,32 @@
                 android:layout_height="2dp"
                 android:background="#aaaaaa" />
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="com.example.vin_s.cargo.PostActivity"
+            android:orientation="horizontal"
+            android:background="#ffffff"
+            >
             <Button
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Submit"
                 android:id="@+id/post_submit_button"
                 android:layout_gravity="center_horizontal" />
 
+            <Button
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:id="@+id/post_cancel_button"
+                android:layout_gravity="center_horizontal" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
