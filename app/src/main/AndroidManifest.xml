@@ -31,27 +31,27 @@
         </activity>
         <activity
             android:name=".PostActivity"
-            android:theme="@style/AppThemeForSignIn"
-            android:parentActivityName=".MainActivity"/>
-
-        <activity android:name=".MyProfile"
-            android:theme="@style/AppThemeForSignIn"/>
-
-        <activity android:name=".resultList"
-            android:theme="@style/AppThemeForSignIn"></activity>
-
-        <activity android:name=".postPage"
-            android:theme="@style/AppThemeForSignIn"></activity>
-
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeForSignIn" />
+        <activity
+            android:name=".MyProfile"
+            android:theme="@style/AppThemeForSignIn" />
+        <activity
+            android:name=".resultList"
+            android:theme="@style/AppThemeForSignIn" />
+        <activity
+            android:name=".postPage"
+            android:theme="@style/AppThemeForSignIn" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppThemeForSignIn"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeForSignIn">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vin_s.cargo.MainActivity" />
         </activity>
+        <activity android:name=".makeComments"></activity>
     </application>
 
 </manifest>
