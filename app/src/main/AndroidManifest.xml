@@ -38,7 +38,12 @@
             android:theme="@style/AppThemeForSignIn"/>
 
         <activity android:name=".resultList"
-            android:theme="@style/AppThemeForSignIn"></activity>
+            android:theme="@style/AppThemeForSignIn"
+            android:parentActivityName=".search">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.vin_s.cargo.search" />
+        </activity>
 
         <activity android:name=".postPage"
             android:theme="@style/AppThemeForSignIn"
