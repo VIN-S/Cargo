@@ -41,7 +41,12 @@
             android:theme="@style/AppThemeForSignIn"></activity>
 
         <activity android:name=".postPage"
-            android:theme="@style/AppThemeForSignIn"></activity>
+            android:theme="@style/AppThemeForSignIn"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.vin_s.cargo.MainActivity" />
+        </activity>
 
         <activity
             android:name=".LoginActivity"
