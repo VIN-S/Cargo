@@ -3,10 +3,11 @@ package com.example.vin_s.cargo.model;
 //this is the post model
 //every form needs a setter and a getter
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class Post
+public class Post implements Serializable
 {
 	//forms
 	String id;

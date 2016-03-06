@@ -83,6 +83,7 @@ public class UserRegistration extends AppCompatActivity {
             showProgress(true);
             Person newUser = new Person(registrationEmail, null);
             Intent intent = new Intent(this, UserRegistrationFinalStep.class);
+            intent.putExtra("NEW_USER", newUser);
             startActivity(intent);
         }
 
@@ -98,33 +99,6 @@ public class UserRegistration extends AppCompatActivity {
         return password.length() > 4;
     }
 
-    private void emailExistDialog(){
-
-        final AlertDialog alertDialog = new AlertDialog.Builder(UserRegistration.this).create();
-        alertDialog.setTitle(R.string.warning);
-        alertDialog.setMessage(getString(R.string.email_exist));
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                alertDialog.dismiss();
-            }
-        });
-        alertDialog.show();
-    }
-
-    private void repeatPasswordDialog(){
-
-        final AlertDialog alertDialog = new AlertDialog.Builder(UserRegistration.this).create();
-        alertDialog.setTitle(R.string.warning);
-        alertDialog.setMessage(getString(R.string.repeat_password_wrong));
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                alertDialog.dismiss();
-            }
-        });
-        alertDialog.show();
-    }
 
     /**
      * Shows the progress UI and hides the login form.

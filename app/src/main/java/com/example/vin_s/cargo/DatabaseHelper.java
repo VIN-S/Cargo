@@ -37,6 +37,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //People Column names
     private static final String KEY_NAME = "name";
     private static final String KEY_INTRO = "intro";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
     
     //Shared Column names
     private static final String KEY_ID = "ID";
@@ -48,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
     private static final String CREATE_TABLE_PEOPLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_PEOPLE + "(" + KEY_ID + " TEXT PRIMARY KEY," + KEY_NAME
-            + " TEXT," + KEY_INTRO + " TEXT" + ")";
+            + " TEXT," + KEY_INTRO + " TEXT," + KEY_EMAIL + "  TEXT," + KEY_PASSWORD + " TEXT)";
 
     //Create table statements
     private static final String CREATE_TABLE_POST = "CREATE TABLE IF NOT EXISTS "
@@ -219,7 +221,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_ID, person.getId());
         values.put(KEY_INTRO, person.getIntro());
         values.put(KEY_NAME, person.getName());
-
+        values.put(KEY_EMAIL, person.getEmail());
+        values.put(KEY_PASSWORD, person.getPassword());
 
         // insert row
         long todo_id = db.insert(TABLE_PEOPLE, null, values);

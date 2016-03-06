@@ -1,13 +1,16 @@
 package com.example.vin_s.cargo.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 //This is the person model
-public class Person
+public class Person implements Serializable
 {
-	String id; //assign everyone a personal int id?
+	String id;
+    String email;
 	String name;
 	String intro;
+    String password;
 	
 	//constructors
 	public Person(){
@@ -25,9 +28,11 @@ public class Person
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	public void setId(String id) {this.id = id;}
+
+    public String getEmail() {return email;}
+
+    public void setEmail(String email) {this.email = email;}
 
 	public String getName() {
 		return name;
@@ -44,4 +49,12 @@ public class Person
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

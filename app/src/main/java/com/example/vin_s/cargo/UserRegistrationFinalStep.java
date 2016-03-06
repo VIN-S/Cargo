@@ -2,6 +2,9 @@ package com.example.vin_s.cargo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+
+import com.example.vin_s.cargo.model.Person;
 
 public class UserRegistrationFinalStep extends AppCompatActivity {
 
@@ -9,5 +12,7 @@ public class UserRegistrationFinalStep extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration_final_step);
+
+        Person user = (Person) getIntent().getSerializableExtra("NEW_USER");
     }
 }

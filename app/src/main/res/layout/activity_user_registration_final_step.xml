@@ -10,13 +10,36 @@
     tools:context="com.example.vin_s.cargo.UserRegistrationFinalStep">
 
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fuck it"
-        android:id="@+id/textView4"
+        android:id="@+id/nick_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="91dp" />
+        android:layout_marginTop="20dp"
+        android:hint="Tell people how to address you"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/self_introduction"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp"
+        android:cursorVisible="true"
+        android:hint="Say something about yourself" />
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/complete_registration"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
+
+
 </RelativeLayout>
