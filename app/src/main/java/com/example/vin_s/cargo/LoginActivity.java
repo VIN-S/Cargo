@@ -256,7 +256,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        AlertDialog dialog = builder.create();
 //    }
 
-    private  void  showAlertDialog(){
+    private void showAlertDialog(){
 
         final AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
         alertDialog.setTitle(R.string.warning);

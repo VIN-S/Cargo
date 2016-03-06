@@ -32,5 +32,7 @@
     <string name="login_fail_message">Incorrect email address or password</string>
     <string name="warning">Warning</string>
     <string name="title_activity_signup">Sign up</string>
+    <string name="email_exist">The email already exists in Cargo</string>
+    <string name="repeat_password_wrong">Please repeat your password again</string>
 
 </resources>

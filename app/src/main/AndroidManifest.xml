@@ -65,8 +65,9 @@
         <activity
             android:name=".UserRegistration"
             android:label="@string/title_activity_signup"
-            android:theme="@style/AppThemeForSignIn"
-            android:parentActivityName=".LoginActivity"></activity>
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppThemeForSignIn" />
+        <activity android:name=".UserRegistrationFinalStep"></activity>
     </application>
 
 </manifest>
