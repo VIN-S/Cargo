@@ -1,5 +1,6 @@
 package com.example.vin_s.cargo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,5 +33,9 @@ public class UserRegistrationFinalStep extends AppCompatActivity {
         user.setIntro(selfIntroView.getText().toString());
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         dbHelper.createPerson(user);
+
+        Intent intent = new Intent(this, MyProfile.class);
+        intent.putExtra("NEW_USER", user);
+        startActivity(intent);
     }
 }

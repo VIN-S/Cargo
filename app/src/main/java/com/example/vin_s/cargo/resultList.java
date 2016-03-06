@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class resultList extends AppCompatActivity {
+public class ResultList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +15,7 @@ public class resultList extends AppCompatActivity {
 
     /** Called when the user clicks the block */
     public void showPostPage(View view) {
-        Intent intent = new Intent(this, postPage.class);
+        Intent intent = new Intent(this, PostPage.class);
         startActivity(intent);
     }
 }
