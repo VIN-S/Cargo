@@ -36,7 +36,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showPostPage"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_marginLeft="20px"
                     android:layout_width="200px"
@@ -75,6 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:onClick="showPostPage"
                 android:layout_marginTop="40px">
 
                 <ImageView
@@ -120,6 +123,7 @@
             <LinearLayout
                 android:layout_marginTop="40px"
                 android:layout_width="match_parent"
+                android:onClick="showPostPage"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_marginBottom="50px"
@@ -159,6 +163,7 @@
                 android:background="#aaaaaa" />
 
             <LinearLayout
+                android:onClick="showPostPage"
                 android:layout_marginTop="40px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

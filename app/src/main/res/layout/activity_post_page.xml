@@ -23,6 +23,16 @@
         android:paddingBottom="10px"
         android:paddingTop="10px"/>
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contextClickable="true">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/relativelayout"
@@ -48,11 +58,7 @@
             android:textColor="#fbfbfb" />
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="2000dp"
-        android:clickable="true"
-        android:contextClickable="true">
+
 
     <LinearLayout
         android:layout_marginTop="30px"
@@ -87,7 +93,7 @@
                     android:layout_marginLeft="25px"
                     android:layout_marginTop="40px"
                     android:textSize="16dp"
-                    android:text="Radiohead                         2015-12-03 07:56"
+                    android:text="Radiohead                         2016-03-03 07:56"
                     android:textColor="#000000"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -191,33 +197,46 @@
             android:layout_height="1dp"
             android:background="#aaaaaa" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:context="com.example.vin_s.cargo.PostActivity"
             android:orientation="vertical"
             android:background="#ffffff"
             >
 
             <TextView
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Write Comments:  "
+                android:textSize="14dp"
                 android:textColor="#000000"
-                android:id="@+id/postTitle" />
+                android:id="@+id/newComment" />
 
-            <EditText android:id="@+id/post_title_edit"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="5dp"
+            <EditText android:id="@+id/newComment_edit"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="80dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="338dp"
+                android:textSize="13sp"
+                android:layout_height="60dp"
                 android:background="#eeeeee"/>
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text="Post"
+                android:id="@+id/search_button"
+                android:background="#38ade8"
+                android:layout_below="@+id/departureDateText"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="280dp"
+                android:layout_marginBottom="10dp"
+                android:onClick="" />
+
         </LinearLayout>
 
         <View
@@ -225,8 +244,77 @@
             android:layout_height="1dp"
             android:background="#aaaaaa" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comments(1): "
+                android:textSize="14dp"
+                android:textColor="#000000"
+                android:id="@+id/comments" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#aaaaaa" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginBottom="50px"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20px"
+                android:layout_width="70px"
+                android:layout_height="70px"
+                android:id="@+id/imageView3"
+                android:background="@drawable/result_3" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Muse                       2016-03-03 12:56"
+                    android:textSize="14dp"
+                    android:textColor="#000000"
+                    android:id="@+id/commentsPo" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi we have three people here! Would like to join :)"
+                    android:textSize="14dp"
+                    android:textColor="#000000"
+                    android:id="@+id/commentsContent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#aaaaaa" />
+
+
+
+
     </LinearLayout>
 
-
+    </LinearLayout>
     </ScrollView>
 </LinearLayout>
