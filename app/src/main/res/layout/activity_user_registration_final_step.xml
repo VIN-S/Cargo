@@ -39,7 +39,8 @@
         android:id="@+id/complete_registration"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="50dp"
+        android:onClick="submitRegistration"/>
 
 
 </RelativeLayout>

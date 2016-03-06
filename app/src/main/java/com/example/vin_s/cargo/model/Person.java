@@ -17,11 +17,13 @@ public class Person implements Serializable
 		this.id = "pe" + UUID.randomUUID().toString();
 	}
 	
-	public Person(String n, String i)
+	public Person(String email, String name, String intro, String password)
 	{
-		id = "pe" + UUID.randomUUID().toString();
-		name = n;
-		intro = i;
+		this.id = "pe" + UUID.randomUUID().toString();
+		this.email = email;
+        this.name = name;
+		this.intro = intro;
+        this.password = password;
 	}
 
 	public String getId() {

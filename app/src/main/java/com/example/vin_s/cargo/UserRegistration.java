@@ -81,7 +81,7 @@ public class UserRegistration extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            Person newUser = new Person(registrationEmail, null);
+            Person newUser = new Person(registrationEmail,null,null,registrationPassword1);
             Intent intent = new Intent(this, UserRegistrationFinalStep.class);
             intent.putExtra("NEW_USER", newUser);
             startActivity(intent);
