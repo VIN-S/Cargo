@@ -6,7 +6,7 @@
     tools:context="com.example.vin_s.cargo.MyProfile"
     android:background="#ffffff">
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="80px"
         android:id="@+id/profileTitle"
@@ -16,7 +16,8 @@
         android:background="#d7d5d5"
         android:text="My Profile"
         android:textColor="#000000"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="30dp"/>
 
     <View
         android:layout_marginTop="30dp"
@@ -29,13 +30,14 @@
     <TextView
         android:layout_width="400px"
         android:layout_height="wrap_content"
-        android:text="Hey we are Radiohead and we are feeling cool. Stuipid guys eh I mean you. And the profile piecture ain&apos;t mine =. ="
+        android:text="Hey I am Bonnie and I love travelling. I have been to lots of places in the past few years. I hope to meet you on the way"
         android:id="@+id/textView2"
         android:textColor="#000000"
         android:textSize="30px"
         android:layout_below="@+id/textView3"
         android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginBottom="20dp"/>
 
     <ImageView
         android:layout_width="91dp"

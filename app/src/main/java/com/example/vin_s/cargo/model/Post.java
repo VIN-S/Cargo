@@ -16,7 +16,9 @@ public class Post
 	Date date;
 
 	//constructor, add any other combinations of input that you might need
-	public Post(){}
+	public Post(){
+		this.id = "po" + UUID.randomUUID().toString();
+	}
 
 	public Post(String ownerID, String origin, String dest, Date date) {
 		this.id = "po" + UUID.randomUUID().toString();

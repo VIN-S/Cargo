@@ -211,6 +211,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return posts;
     }
 
+    //create person
+    public long createPerson(Person person){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, person.getId());
+        values.put(KEY_INTRO, person.getIntro());
+        values.put(KEY_NAME, person.getName());
+
+
+        // insert row
+        long todo_id = db.insert(TABLE_PEOPLE, null, values);
+        return todo_id;
+    }
+
     //drop person table
     public void dropPerson(SQLiteDatabase db){
         db.execSQL(DROP_TABLE_PEOPLE);

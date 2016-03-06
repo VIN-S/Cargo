@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.example.vin_s.cargo.model.Person;
+import com.example.vin_s.cargo.model.Post;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,8 +17,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-//        dbHelper.onCreate(dbHelper.getWritableDatabase());
-        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,2);
+        dbHelper.onCreate(dbHelper.getWritableDatabase());
+//        dbHelper.onUpgrade(dbHelper.getWritableDatabase(),1,2);
+
     }
 
     /** Called when the user clicks the Search button */

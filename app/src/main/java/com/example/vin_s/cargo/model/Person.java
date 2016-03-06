@@ -10,30 +10,38 @@ public class Person
 	String intro;
 	
 	//constructors
-	public Person(){}
+	public Person(){
+		this.id = "pe" + UUID.randomUUID().toString();
+	}
 	
-	public Person(String n, String c, String i)
+	public Person(String n, String i)
 	{
-		id = "pe" + UUID.randomUUID().toString();;;
+		id = "pe" + UUID.randomUUID().toString();
 		name = n;
 		intro = i;
 	}
-	
-	//setters	
-	public void setName(String name){
-		this.name = name;
+
+	public String getId() {
+		return id;
 	}
 
-	public void setIntro(String intro){
-		this.intro = intro;
+	public void setId(String id) {
+		this.id = id;
 	}
-	
-	//getters 
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
 
-	public String getIntro(){
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getIntro() {
 		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 }
