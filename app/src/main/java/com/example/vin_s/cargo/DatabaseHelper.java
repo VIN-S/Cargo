@@ -1,18 +1,21 @@
 package com.example.vin_s.cargo;
 
-import com.example.vin_s.cargo.model.Post;
-import com.example.vin_s.cargo.model.Person;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.vin_s.cargo.model.Person;
+import com.example.vin_s.cargo.model.Post;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
  
@@ -29,10 +32,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_PEOPLE = "person";
 
     //Post Column names
+    private static final String KEY_OWNERID = "ownerID";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_SLOGAN = "slogan";
+    private static final String KEY_CARTYPE = "carType";
     private static final String KEY_ORIGIN = "origin";
     private static final String KEY_DEST = "destination";
     private static final String KEY_DATE = "date";
-    private static final String KEY_OWNERID = "ownerID";
+    private static final String KEY_NUMBEROFSEATS = "numberOfSeats";
+    private static final String KEY_SEATLEFT = "seatsLeft";
+    private static final String KEY_DETAILS = "details";
+    private static final String KEY_DURATION = "duration";
+    private static final String KEY_REQUIREMENTS = "requirements";
 
     //People Column names
     private static final String KEY_NAME = "name";
@@ -54,9 +65,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Create table statements
     private static final String CREATE_TABLE_POST = "CREATE TABLE IF NOT EXISTS "
-            + TABLE_POST + "(" + KEY_ID + " TEXT PRIMARY KEY," + KEY_ORIGIN
-            + " TEXT," + KEY_DEST + " TEXT," + KEY_DATE
-            + " DATE," + KEY_OWNERID + " TEXT, FOREIGN KEY (" + KEY_OWNERID + ") REFERENCES " + TABLE_PEOPLE + "(" + KEY_ID + "))";
+            + TABLE_POST + "(" + KEY_ID + " TEXT PRIMARY KEY," + KEY_TITLE
+            + " TEXT," + KEY_SLOGAN + " TEXT," + KEY_CARTYPE + " TEXT," + KEY_ORIGIN + " TEXT," + KEY_DEST + " TEXT,"
+            +  KEY_DATE + " DATE," + KEY_NUMBEROFSEATS
+            + " INT," + KEY_SEATLEFT + " INT," + KEY_DETAILS
+            + " TEXT," +  KEY_DURATION + " TEXT," + KEY_REQUIREMENTS
+            + " TEXT," + KEY_OWNERID + " TEXT, FOREIGN KEY (" + KEY_OWNERID + ") REFERENCES " + TABLE_PEOPLE + "(" + KEY_ID + "))";
 
     //Drop Person Table
     private static final String DROP_TABLE_PEOPLE = "DROP TABLE " + TABLE_PEOPLE;
@@ -92,6 +106,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_ORIGIN, post.getOrigin());
         values.put(KEY_DEST, post.getDest());
         values.put(KEY_DATE, dateFormatter.format(post.getDate()));
+        values.put(KEY_TITLE, post.getTitle());
+        values.put(KEY_SLOGAN, post.getSlogan());
+        values.put(KEY_CARTYPE,post.getCarType());
+        values.put(KEY_NUMBEROFSEATS,post.getNumberOfSeats());
+        values.put(KEY_SEATLEFT,post.getSeatsLeft());
+        values.put(KEY_DETAILS,post.getDetails());
+        values.put(KEY_DURATION,post.getDuration());
+        values.put(KEY_REQUIREMENTS,post.getRequirements());
 
  
         // insert row

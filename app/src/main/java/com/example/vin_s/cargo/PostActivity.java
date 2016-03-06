@@ -21,9 +21,18 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
     private EditText fromDateEtxt;
+    private EditText title;
+    private EditText slogan;
+    private EditText car;
     private Spinner origin;
     private Spinner destination;
     private EditText departure_date;
+    private EditText numberOfSeats;
+    private EditText seatsLeft;
+    private EditText details;
+    private EditText duration;
+    private EditText requirements;
+
 
 
 
@@ -44,7 +53,14 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         origin = (Spinner) findViewById(R.id.originPicker);
         destination = (Spinner) findViewById(R.id.destinationPicker);
         departure_date = (EditText) findViewById(R.id.post_departure_date_edit);
-
+        title = (EditText) findViewById((R.id.post_title_edit));
+        slogan = (EditText) findViewById(R.id.post_slogan_edit);
+        car = (EditText) findViewById(R.id.post_car_edit);
+        numberOfSeats = (EditText) findViewById(R.id.post_number_of_seats_edit);
+        seatsLeft = (EditText) findViewById((R.id.post_seats_left_edit));
+        details = (EditText) findViewById(R.id.post_route_details_edit);
+        duration = (EditText) findViewById(R.id.post_duration_edit);
+        requirements = (EditText) findViewById(R.id.post_requirements_edit);
     }
 
     private void setDateTimeField() {
@@ -93,8 +109,12 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
         String ownerID = "1";
 
+        int numOfSeats = Integer.parseInt(numberOfSeats.getText().toString());
+
+        int seatLeft = Integer.parseInt(seatsLeft.getText().toString());
+
         Post post =
-                new Post(ownerID, origin.getSelectedItem().toString(), destination.getSelectedItem().toString(),departureDate);
+                new Post(ownerID,title.getText().toString(),slogan.getText().toString(),car.getText().toString(),seatLeft,numOfSeats, details.getText().toString(),duration.getText().toString(),requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(),departureDate);
 
         dbHandler.createPost(post);
     }
