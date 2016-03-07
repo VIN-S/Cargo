@@ -27,7 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class search extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+
+public class Search extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+
 
     Spinner spinner;
     private DatePickerDialog fromDatePickerDialog;
@@ -120,7 +122,7 @@ public class search extends AppCompatActivity implements AdapterView.OnItemSelec
 
     /** Called when the user clicks the Search button */
     public void showSearchResult(View view) {
-        Intent intent = new Intent(this, resultList.class);
+        Intent intent = new Intent(this, ResultList.class);
         intent.putExtra("test", "testing_display");
         intent.putExtra("resultList", (Serializable) posts);
         startActivity(intent);

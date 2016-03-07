@@ -1,18 +1,20 @@
 package com.example.vin_s.cargo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.vin_s.cargo.model.Post;
 import java.util.*;
 
-public class resultList extends AppCompatActivity {
+
+public class ResultList extends AppCompatActivity {
 
     private TextView org_des;
     private List<Post> posts = new ArrayList<Post>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
