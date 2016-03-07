@@ -122,7 +122,7 @@ public class search extends AppCompatActivity implements AdapterView.OnItemSelec
     public void showSearchResult(View view) {
         Intent intent = new Intent(this, resultList.class);
         intent.putExtra("test", "testing_display");
-        //intent.putExtra("resultList", posts);
+        intent.putExtra("resultList", (Serializable) posts);
         startActivity(intent);
     }
 
