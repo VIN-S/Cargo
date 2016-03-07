@@ -33,7 +33,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private EditText details;
     private EditText duration;
     private EditText requirements;
-
+    private Post postCreated;
 
 
 
@@ -80,13 +80,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-
     @Override
     public void onClick(View view) {
         if(view == fromDateEtxt) {
@@ -117,6 +110,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         Post post =
                 new Post(ownerID,title.getText().toString(),slogan.getText().toString(),car.getText().toString(),seatLeft,numOfSeats, details.getText().toString(),duration.getText().toString(),requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(),departureDate);
 
+        postCreated =
+                new Post(ownerID,title.getText().toString(),slogan.getText().toString(),car.getText().toString(),seatLeft,numOfSeats, details.getText().toString(),duration.getText().toString(),requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(),departureDate);
+
         dbHandler.createPost(post);
 
         gotoPostPage(view);
@@ -126,6 +122,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     /** Called after the post is written into the database */
     private void gotoPostPage(View view) {
         Intent intent = new Intent(this, PostPage.class);
+        intent.putExtra("createPost", true);
+        intent.putExtra("postCreated", postCreated);
         startActivity(intent);
     }
 }

@@ -71,9 +71,8 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         findViewsById();
         setDateTimeField();
 
-//        dbHelper.onCreate(dbHelper.getWritableDatabase());
-        dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 2);
-
+        //dbHelper.onCreate(dbHelper.getWritableDatabase());
+        //dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 2);
         addListenerOnButton();
     }
 
@@ -152,7 +151,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
                 origin = String.valueOf(spinner1.getSelectedItem());
                 destination = String.valueOf(spinner2.getSelectedItem());
-                departureDate = depDate.getText().toString();
+                departureDate = depDate.getText().toString(); //dd-mm-yyyy
 
                 if(TextUtils.isEmpty(departureDate)) {
                     depDate.setError("Cannot be Empty");

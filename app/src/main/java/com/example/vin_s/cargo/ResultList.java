@@ -4,16 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.FrameLayout.LayoutParams;
 import com.example.vin_s.cargo.model.Post;
+
+import org.w3c.dom.Text;
+
 import java.util.*;
 
 
 public class ResultList extends AppCompatActivity {
 
-    private TextView org_des;
-    private TextView content;
+    private LinearLayout loop;
     private List<Post> posts = new ArrayList<Post>();
 
 
@@ -21,20 +25,95 @@ public class ResultList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_list);
-        String testing = getIntent().getStringExtra("test");
-        org_des = (TextView) findViewById(R.id.org_des);
-        content = (TextView) findViewById(R.id.postContent);
+        loop = (LinearLayout) findViewById(R.id.loopLayout);
+        loop.setOrientation(LinearLayout.VERTICAL);
+        loop.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
         posts = (List<Post>) getIntent().getSerializableExtra("resultList");
+        int num = posts.size();
         if(posts.isEmpty()) {
-            org_des.setText("Sorry! There s no trip available!");
-            content.setText("Please search again!");
-            System.out.printf("is empty");
+            LinearLayout.LayoutParams lpT = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            lpT.setMargins(0, 0, 0, 20);
+            TextView one = new TextView(this);
+            TextView two = new TextView(this);
+            one.setLayoutParams(lpT);
+            two.setLayoutParams(lpT);
+            one.setTextColor(0XFF000000);
+            one.setTextSize(18);
+            two.setTextSize(16);
+            two.setTextColor(0XFF000000);
+            one.setText("Sorry! There s no trip available!");
+            two.setText("Please search again!");
+            loop.addView(one);
+            loop.addView(two);
         }
         else {
-            org_des.setText((String)posts.get(0).getOrigin());
-            content.setText((String)posts.get(0).getDuration());
-            System.out.printf("not empty");
+            for(int l=0; l<num; l++)
+            {
+                String org = (String)posts.get(l).getOrigin();
+                String des = (String)posts.get(l).getDest();
+                String duration = (String) posts.get(l).getDuration();
+                String pTitle = (String)posts.get(l).getTitle();
+                String od = org + " - " + des + ", " + duration;
+
+                //child include child1, view
+                LinearLayout child = new LinearLayout(this);
+                child.setOrientation(LinearLayout.VERTICAL);
+                child.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+                //child1 include imageview, finalc
+                LinearLayout child1 = new LinearLayout(this);
+                child1.setOrientation(LinearLayout.HORIZONTAL);
+                child1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+                ImageView image = new ImageView(this);
+                image.setImageResource(R.drawable.result_1);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(200, 200);
+                lp.setMargins(20, 0, 0, 0);
+                image.setLayoutParams(lp);
+
+                //finalc include text1, text2, text3
+                LinearLayout finalC = new LinearLayout(this);
+                finalC.setOrientation(LinearLayout.VERTICAL);
+                LinearLayout.LayoutParams lpC = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                lpC.setMargins(0, 0, 0, 30);
+                finalC.setLayoutParams(lpC);
+
+                TextView text1 = new TextView(this);
+                TextView text2 = new TextView(this);
+                TextView text3 = new TextView(this);
+                LinearLayout.LayoutParams lpT = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                lpT.setMargins(30, 0, 0, 0);
+                text1.setLayoutParams(lpT);
+                text2.setLayoutParams(lpT);
+                text3.setLayoutParams(lpT);
+
+                text1.setText((String) od);
+                text1.setTextSize(18);
+                text1.setTextColor(0XFF000000);
+                text2.setText((String) pTitle);
+                text2.setTextSize(16);
+                text3.setText((String) posts.get(l).getSlogan());
+                text3.setTextSize(13);
+
+                View view = new View(this);
+                LinearLayout.LayoutParams lpV = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,2);
+                lpV.setMargins(0,20,0, 20);
+                view.setLayoutParams(lpV);
+                view.setBackgroundColor(0XFF000000);
+
+                finalC.addView(text1);
+                finalC.addView(text2);
+                finalC.addView(text3);
+
+                child1.addView(image);
+                child1.addView(finalC);
+
+                child.addView(child1);
+                child.addView(view);
+
+                loop.addView(child);
+            }
         }
     }
 

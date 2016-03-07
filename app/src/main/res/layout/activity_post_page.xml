@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="    Stockholm - Lÿòveldiò ísland,8 DAYS"
+        android:id="@+id/post_page_title"
         android:textColor="#000000"
         android:layout_marginBottom="30px"
         android:layout_marginLeft="20px"
@@ -46,15 +46,13 @@
             android:background="@drawable/postpage" />
 
         <TextView
-            android:id="@+id/myImageViewText"
+            android:id="@+id/post_page_slogan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/myImageView"
             android:layout_alignBottom="@id/myImageView"
             android:layout_margin="20dp"
             android:gravity="left"
-            android:text="Join us to Lÿòveldiò ísland
-            Three more seats left"
             android:textColor="#fbfbfb" />
     </RelativeLayout>
 
@@ -93,7 +91,7 @@
                     android:layout_marginLeft="25px"
                     android:layout_marginTop="40px"
                     android:textSize="16dp"
-                    android:text="Radiohead                         2016-03-03 07:56"
+                    android:id="@+id/post_page_creatorName"
                     android:textColor="#000000"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,7 +122,7 @@
                 android:layout_marginLeft="25px"
                 android:layout_marginTop="20px"
                 android:textSize="13dp"
-                android:text="Hey we are going to Iceland from Stockholm t-center next week, so far we have three guys and one girl. We are all student and we are looking for three more people to join us. Come on and join us!! :)"
+                android:id="@+id/post_page_detail"
                 android:textColor="#000000"/>
 
         </LinearLayout>
@@ -145,49 +143,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Car: Jeep Wrangler "
+                android:id="@+id/post_page_car"
                 android:textColor="#000000"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Origin: Stockholm T-Central"
+                android:id="@+id/post_page_origin"
                 android:textColor="#000000"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Destination: Lÿòveldiò Airport (Iceland)"
+                android:id="@+id/post_page_destination"
                 android:textColor="#000000"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Departure Date: 2015-12-11"
+                android:id="@+id/post_page_departure_date"
                 android:textColor="#000000"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Duration: 8 days"
+                android:id="@+id/post_page_duration"
                 android:textColor="#000000"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Total Number of Seats: 7"
+                android:id="@+id/post_page_number_seats"
                 android:textColor="#000000"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Seats left: 3 "
+                android:id="@+id/post_page_seats_left"
                 android:textColor="#000000"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
-                android:text="Special Requirement: ID Verificaiton required"
+                android:id="@+id/post_page_requirements"
                 android:textColor="#000000"/>
 
         </LinearLayout>
@@ -235,7 +233,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginLeft="280dp"
                 android:layout_marginBottom="10dp"
-                android:onClick="" />
+                android:onClick="submitComment" />
 
         </LinearLayout>
 
