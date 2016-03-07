@@ -151,11 +151,126 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      
         return posts;
     }
-    
+
+    //get all posts by origin, destination and departure date (includeing "any")
+    public List<Post> getAllPostsByOD (String org, String des, String dDate) throws ParseException {
+        List<Post> posts = new ArrayList<Post>();
+        DateFormat df1 = new SimpleDateFormat("MM-dd-yyyy");
+        DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
+        Date dateTemp = df1.parse(dDate);
+        String temp = df2.format(dateTemp);
+        Date depDate = df2.parse(temp);
+
+        //origin = any
+        if(org.equals("Any")&&!des.equals("Any")){
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
+                    + KEY_DEST + " = '" + des +"'" + "&&"
+                    + KEY_DATE + " = '" + depDate + "'";
+
+            Log.e(LOG, selectQuery);
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            if (c.moveToFirst()) {
+                do {
+                    Post p = new Post();
+                    p.setId(c.getString(c.getColumnIndex(KEY_ID)));
+                    p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
+                    p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
+                    p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
+                    p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    // adding to todo list
+                    posts.add(p);
+                } while (c.moveToNext());
+            }
+            return posts;
+        }//destination = any
+        else if(des.equals("Any")&&!org.equals("Any")){
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
+                    + KEY_ORIGIN + " = '" + org +"'" + "&&"
+                    + KEY_DATE + " = '" + depDate + "'";
+            Log.e(LOG, selectQuery);
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            if (c.moveToFirst()) {
+                do {
+                    Post p = new Post();
+                    p.setId(c.getString(c.getColumnIndex(KEY_ID)));
+                    p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
+                    p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
+                    p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
+                    p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    // adding to todo list
+                    posts.add(p);
+                } while (c.moveToNext());
+            }
+            return posts;
+        }//both origin and destination are any
+        else if(org.equals("Any")&&des.equals("Any")){
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
+                    + KEY_DATE + " = '" + depDate + "'";
+
+            Log.e(LOG, selectQuery);
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            if (c.moveToFirst()) {
+                do {
+                    Post p = new Post();
+                    p.setId(c.getString(c.getColumnIndex(KEY_ID)));
+                    p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
+                    p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
+                    p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
+                    p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    // adding to todo list
+                    posts.add(p);
+                } while (c.moveToNext());
+            }
+            return posts;
+        }//both not any
+        else{
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
+                    + KEY_ORIGIN + " = '" + org + "'" + "&&"
+                    + KEY_DEST + " = '" + des +"'" + "&&"
+                    + KEY_DATE + " = '" + depDate + "'";
+
+            Log.e(LOG, selectQuery);
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            if (c.moveToFirst()) {
+                do {
+                    Post p = new Post();
+                    p.setId(c.getString(c.getColumnIndex(KEY_ID)));
+                    p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
+                    p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
+                    p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
+                    p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    // adding to todo list
+                    posts.add(p);
+                } while (c.moveToNext());
+            }
+            return posts;
+        }
+    }
+
+
     //get all posts by Origin 
     public List<Post> getAllPostsO (String org) throws ParseException {
         List<Post> posts = new ArrayList<Post>();
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
                 + KEY_ORIGIN + " = '" + org +"'";
      
@@ -184,7 +299,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
     public List<Post> getAllPostsD (String des) throws ParseException {
         List<Post> posts = new ArrayList<Post>();
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
                 + KEY_DEST + " = '" + des +"'";
      
