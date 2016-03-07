@@ -129,10 +129,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_SLOGAN, post.getSlogan());
         values.put(KEY_CARTYPE,post.getCarType());
         values.put(KEY_NUMBEROFSEATS,post.getNumberOfSeats());
-        values.put(KEY_SEATLEFT,post.getSeatsLeft());
-        values.put(KEY_DETAILS,post.getDetails());
-        values.put(KEY_DURATION,post.getDuration());
-        values.put(KEY_REQUIREMENTS,post.getRequirements());
+        values.put(KEY_SEATLEFT, post.getSeatsLeft());
+        values.put(KEY_DETAILS, post.getDetails());
+        values.put(KEY_DURATION, post.getDuration());
+        values.put(KEY_REQUIREMENTS, post.getRequirements());
 
  
         // insert row
@@ -421,8 +421,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-        if (c != null){
-            c.moveToFirst();
+        if (c != null && c.moveToFirst()){
 
             Person user = new Person();
             user.setId(c.getString((c.getColumnIndex(KEY_ID))));

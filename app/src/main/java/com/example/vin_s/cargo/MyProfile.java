@@ -1,12 +1,14 @@
 package com.example.vin_s.cargo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.vin_s.cargo.model.Person;
 
-public class MyProfile extends AppCompatActivity {
+public class MyProfile extends AppCompatActivity{
 
     private Person user;
     private TextView userNicknameView;
@@ -25,6 +27,12 @@ public class MyProfile extends AppCompatActivity {
         userNicknameView.setText(user.getName());
         userIntroView.setText(user.getIntro());
 
+    }
+
+    public void redirectToSearch(View view){
+        Intent intent = new Intent(this, Search.class);
+        intent.putExtra("USER", user);
+        startActivity(intent);
     }
 
 }

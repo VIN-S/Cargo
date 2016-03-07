@@ -83,22 +83,42 @@
         android:layout_below="@+id/my_trips"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="About Me"
-        android:id="@+id/about_me"
-        android:layout_below="@+id/profile_settings"
-        android:layout_alignLeft="@+id/profile_settings"
-        android:layout_alignStart="@+id/profile_settings" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Contact"
-        android:id="@+id/contact"
-        android:layout_below="@+id/about_me"
-        android:layout_alignLeft="@+id/about_me"
-        android:layout_alignStart="@+id/about_me" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/saerch_button"
+            android:background="@drawable/search_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToSearch"/>
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/profile_button"
+            android:background="@drawable/profile_icon_current"
+            android:layout_alignParentBottom="true" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/message_button"
+            android:background="@drawable/message_icon"
+            android:layout_alignParentBottom="true" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/setting_button"
+            android:background="@drawable/settings_icon"
+            android:layout_alignParentBottom="true" />
+
+    </LinearLayout>
 
 </RelativeLayout>
