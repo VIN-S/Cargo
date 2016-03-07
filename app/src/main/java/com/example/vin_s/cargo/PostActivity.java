@@ -120,6 +120,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         dbHandler.createPost(post);
 
         gotoPostPage(view);
+
     }
 
     /** Called after the post is written into the database */
@@ -127,5 +128,4 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, PostPage.class);
         startActivity(intent);
     }
-
 }
