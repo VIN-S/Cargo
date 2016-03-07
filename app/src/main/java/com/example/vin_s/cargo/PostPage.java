@@ -7,6 +7,9 @@ import android.widget.TextView;
 import com.example.vin_s.cargo.model.Person;
 import com.example.vin_s.cargo.model.Post;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by VIN-S on 16/3/7.
  */
@@ -16,9 +19,18 @@ public class PostPage extends AppCompatActivity{
     private Post postSelected;
     private TextView title;
     private TextView slogan;
-    private TextView createrName;
+    private TextView creatorName;
+    private TextView details;
+    private TextView car;
+    private TextView origin;
+    private TextView destination;
+    private TextView departureDate;
+    private TextView duration;
+    private TextView numOfSeats;
+    private TextView seatsLeft;
+    private TextView requirements;
     private Boolean createPostOrNot = false;
-    private Person creater;
+    private Person creator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +40,52 @@ public class PostPage extends AppCompatActivity{
         createPostOrNot = (Boolean) getIntent().getSerializableExtra("createPost");
 
         if(createPostOrNot) {
+            DateFormat df = new SimpleDateFormat("mm-dd-yyyy");
+
 //          find related display in postpage layout
             title = (TextView) findViewById(R.id.post_page_title);
             slogan = (TextView) findViewById(R.id.post_page_slogan);
-            createrName = (TextView) findViewById(R.id.post_page_createrName);
+            creatorName = (TextView) findViewById(R.id.post_page_creatorName);
+            details = (TextView) findViewById(R.id.post_page_detail);
+            car = (TextView) findViewById(R.id.post_page_car);
+            origin = (TextView) findViewById(R.id.post_page_origin);
+            destination = (TextView) findViewById(R.id.post_page_destination);
+            departureDate = (TextView) findViewById(R.id.post_page_departure_date);
+            duration = (TextView) findViewById(R.id.post_page_duration);
+            numOfSeats = (TextView) findViewById(R.id.post_page_number_seats);
+            seatsLeft = (TextView) findViewById(R.id.post_page_seats_left);
+            requirements = (TextView) findViewById(R.id.post_page_requirements);
 
 //          get post content and creater info
             postCreated = (Post) getIntent().getSerializableExtra("postCreated");
-            creater = setCreaterInfo(postCreated.getOwnerID());
+            creator = setCreaterInfo(postCreated.getOwnerID());
 
 //          set content for layout
             title.setText(postCreated.getTitle().toString());
             slogan.setText(postCreated.getSlogan().toString());
-            createrName.setText(creater.getName());
+            creatorName.setText(creator.getName());
+            details.setText(postCreated.getDetails().toString());
+            car.setText("Car: " + postCreated.getCarType().toString());
+            origin.setText("Origin: " + postCreated.getOrigin().toString());
+            destination.setText("Destination: " + postCreated.getDest().toString());
+            try {
+                departureDate.setText("Departure Date: " + df.parse(postCreated.getDate().toString()));
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            duration.setText("Duration: " + postCreated.getDuration().toString());
+            numOfSeats.setText("Number of Seats: " + postCreated.getNumberOfSeats());
+            seatsLeft.setText("Seats Left: " + postCreated.getSeatsLeft());
+            requirements.setText("Special Requirements: " + postCreated.getRequirements());
         }
     }
 
     public Person setCreaterInfo(String personID){
         DatabaseHelper dbHandler = new DatabaseHelper(this);
 
-        creater = dbHandler.getUserByID(personID);
+        creator = dbHandler.getUserByID(personID);
 
-        return creater;
+        return creator;
     }
 }
