@@ -6,11 +6,11 @@ import java.util.UUID;
 //This is the person model
 public class Person implements Serializable
 {
-	String id;
-    String email;
-	String name;
-	String intro;
-    String password;
+	private String id;
+    private String email;
+	private String name;
+	private String intro;
+    private String password;
 	
 	//constructors
 	public Person(){

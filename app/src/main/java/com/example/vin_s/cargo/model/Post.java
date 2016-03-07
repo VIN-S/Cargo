@@ -10,19 +10,19 @@ import java.util.UUID;
 public class Post implements Serializable
 {
 	//forms
-	String id;
-	String OwnerID;
-	String title;
-	String slogan;
-	String carType;
-	int numberOfSeats;
-	int seatsLeft;
-	String details;
-	String duration;
-	String requirements;
-	String origin;
-	String dest;
-	Date date;
+	private String id;
+	private String OwnerID;
+	private String title;
+	private String slogan;
+	private String carType;
+	private int numberOfSeats;
+	private int seatsLeft;
+	private String details;
+	private String duration;
+	private String requirements;
+	private String origin;
+	private String dest;
+	private Date date;
 
 	//constructor, add any other combinations of input that you might need
 	public Post(){
