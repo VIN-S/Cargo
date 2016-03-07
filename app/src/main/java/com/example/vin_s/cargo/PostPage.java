@@ -40,7 +40,7 @@ public class PostPage extends AppCompatActivity{
         createPostOrNot = (Boolean) getIntent().getSerializableExtra("createPost");
 
         if(createPostOrNot) {
-            DateFormat df = new SimpleDateFormat("mm-dd-yyyy");
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
 //          find related display in postpage layout
             title = (TextView) findViewById(R.id.post_page_title);
@@ -69,7 +69,7 @@ public class PostPage extends AppCompatActivity{
             origin.setText("Origin: " + postCreated.getOrigin().toString());
             destination.setText("Destination: " + postCreated.getDest().toString());
             try {
-                departureDate.setText("Departure Date: " + df.parse(postCreated.getDate().toString()));
+                departureDate.setText("Departure Date: " + df.format(postCreated.getDate()).toString());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
