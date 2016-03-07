@@ -31,9 +31,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Names
     private static final String TABLE_POST = "post";
     private static final String TABLE_PEOPLE = "person";
+    private static final String TABLE_COMMENT = "comment";
 
     //Post Column names
-    private static final String KEY_OWNERID = "ownerID";
     private static final String KEY_TITLE = "title";
     private static final String KEY_SLOGAN = "slogan";
     private static final String KEY_CARTYPE = "carType";
@@ -51,15 +51,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_INTRO = "intro";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
+
+    //Comment Column names
+    private static final String KEY_POSTID = "postID";
+    private static final String KEY_CONTENT = "content";
+    private static final String KEY_DATE_OF_COMMENT = "dateOfComment";
+    private static final String KEY_REPLYTO = "replyTo";
     
     //Shared Column names
     private static final String KEY_ID = "ID";
+    private static final String KEY_OWNERID = "ownerID";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    
+    //Create people statements
     private static final String CREATE_TABLE_PEOPLE = "CREATE TABLE IF NOT EXISTS "
             + TABLE_PEOPLE + "(" + KEY_ID + " TEXT PRIMARY KEY," + KEY_NAME
             + " TEXT," + KEY_INTRO + " TEXT," + KEY_EMAIL + "  TEXT," + KEY_PASSWORD + " TEXT)";
@@ -73,11 +80,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " TEXT," +  KEY_DURATION + " TEXT," + KEY_REQUIREMENTS
             + " TEXT," + KEY_OWNERID + " TEXT, FOREIGN KEY (" + KEY_OWNERID + ") REFERENCES " + TABLE_PEOPLE + "(" + KEY_ID + "))";
 
+    //Create comment statements
+    private static final String CREATE_TABLE_COMMENT = "CREATE TABLE IF NOT EXISTS "
+            + TABLE_COMMENT + "(" + KEY_ID + " TEXT PRIMARY KEY," + KEY_POSTID
+            + " TEXT," + KEY_OWNERID + " TEXT," + KEY_CONTENT + "  TEXT," + KEY_DATE + " DATE," + KEY_REPLYTO + " TEXT, FOREIGN KEY ("
+            + KEY_OWNERID + ") REFERENCES " + TABLE_PEOPLE + "(" + KEY_ID + "), FOREIGN KEY (" + KEY_POSTID + ") REFERENCES " + TABLE_POST + "(" + KEY_ID + "))";
+
     //Drop Person Table
     private static final String DROP_TABLE_PEOPLE = "DROP TABLE " + TABLE_PEOPLE;
 
     //Drop Post Table
     private static final String DROP_TABLE_POST = "DROP TABLE " + TABLE_POST;
+
+    //Drop Comment Table
+    private static final  String DROP_TABLE_COMMENT = "DROP TABLE " + TABLE_COMMENT;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
