@@ -33,6 +33,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.vin_s.cargo.model.Person;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
+    private DatabaseHelper dbHelper = new DatabaseHelper(this);
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -60,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private Person user = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -234,6 +239,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loginSuccessful(){
         Intent intent = new Intent(this, MyProfile.class);
+        intent.putExtra("NEW_USER", user);
         startActivity(intent);
     }
 
@@ -418,15 +424,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+            user = (Person) dbHelper.getUserByEmail(mEmail);
+
+            if(user == null){
+                return false;
+            }else{
+                if(user.getPassword().equals(mPassword)){
+                    return true;
+                }else{
+                    return false;
                 }
             }
 
-            return false;
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mEmail)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
+//
+//            return false;
         }
 
         @Override

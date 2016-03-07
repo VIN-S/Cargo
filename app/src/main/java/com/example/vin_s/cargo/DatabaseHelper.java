@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Person;
 import com.example.vin_s.cargo.model.Post;
 
@@ -100,6 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // creating required tables
         db.execSQL(CREATE_TABLE_POST);
         db.execSQL(CREATE_TABLE_PEOPLE);
+        db.execSQL(CREATE_TABLE_COMMENT);
 //        db.execSQL(CREATE_TABLE_PPL_POST);
     }
  
@@ -108,13 +110,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_POST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PEOPLE);
- 
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENT);
         // create new tables
         onCreate(db);
     }
     
     public long createPost(Post post) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         SQLiteDatabase db = this.getWritableDatabase();
  
         ContentValues values = new ContentValues();
@@ -383,6 +385,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return todo_id;
     }
 
+    //Retrieve all users
+    public List<Person> getAllUsers(){
+        List<Person> users = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_PEOPLE;
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Person user = new Person();
+                user.setId(c.getString((c.getColumnIndex(KEY_ID))));
+                user.setEmail(c.getString(c.getColumnIndex(KEY_EMAIL)));
+                user.setName((c.getString(c.getColumnIndex(KEY_NAME))));
+                user.setIntro(c.getString(c.getColumnIndex(KEY_INTRO)));
+                user.setPassword(c.getString(c.getColumnIndex(KEY_PASSWORD)));
+                users.add(user);
+            } while (c.moveToNext());
+        }
+
+        return users;
+    }
+
+    //Retrieve particular user
+    public Person getUserByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_PEOPLE + " WHERE EMAIL = '" + email + "'";
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null){
+            c.moveToFirst();
+
+            Person user = new Person();
+            user.setId(c.getString((c.getColumnIndex(KEY_ID))));
+            user.setEmail(c.getString(c.getColumnIndex(KEY_EMAIL)));
+            user.setName((c.getString(c.getColumnIndex(KEY_NAME))));
+            user.setIntro(c.getString(c.getColumnIndex(KEY_INTRO)));
+            user.setPassword(c.getString(c.getColumnIndex(KEY_PASSWORD)));
+            return user;
+
+        }else{
+            return null;
+        }
+    }
+
+    //create comment
+    public long createComment(Comment comment){
+        SQLiteDatabase db = this.getWritableDatabase();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, comment.getId());
+        values.put(KEY_OWNERID, comment.getOwnerID());
+        values.put(KEY_POSTID, comment.getPostID());
+        values.put(KEY_CONTENT, comment.getContent());
+        values.put(KEY_DATE_OF_COMMENT, dateFormatter.format(comment.getDateOfComment()));
+        values.put(KEY_REPLYTO, comment.getReplyTo());
+
+        // insert row
+        long todo_id = db.insert(TABLE_COMMENT, null, values);
+        return todo_id;
+    }
+
     //drop person table
     public void dropPerson(SQLiteDatabase db){
         db.execSQL(DROP_TABLE_PEOPLE);
@@ -391,6 +463,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //drop post table
     public void dropPost(SQLiteDatabase db){
         db.execSQL(DROP_TABLE_POST);
+    }
+
+    //drop comment table
+    public void dropComment(SQLiteDatabase db){
+        db.execSQL(DROP_TABLE_COMMENT);
     }
 
     // closing database
