@@ -1,6 +1,7 @@
 package com.example.vin_s.cargo;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -117,6 +118,14 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 new Post(ownerID,title.getText().toString(),slogan.getText().toString(),car.getText().toString(),seatLeft,numOfSeats, details.getText().toString(),duration.getText().toString(),requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(),departureDate);
 
         dbHandler.createPost(post);
+
+        gotoPostPage(view);
+    }
+
+    /** Called after the post is written into the database */
+    private void gotoPostPage(View view) {
+        Intent intent = new Intent(this, PostPage.class);
+        startActivity(intent);
     }
 
 }

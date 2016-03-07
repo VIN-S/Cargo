@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+/**
+ * Created by VIN-S on 16/3/7.
+ */
 public class Search extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     Spinner spinner;
