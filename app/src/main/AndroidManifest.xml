@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".search"
+            android:name=".Search"
             android:label="@string/title_activity_search"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppThemeForSignIn">
@@ -35,23 +35,23 @@
             android:theme="@style/AppThemeForSignIn" />
         <activity
             android:name=".MyProfile"
-            android:theme="@style/AppThemeForSignIn" />
+            android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".resultList"
-            android:theme="@style/AppThemeForSignIn"
-            android:parentActivityName=".search">
+            android:name=".ResultList"
+            android:parentActivityName=".Search"
+            android:theme="@style/AppThemeForSignIn">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.vin_s.cargo.search" />
+                android:value=".Search" />
         </activity>
-        <activity android:name=".postPage"
-            android:theme="@style/AppThemeForSignIn"
-            android:parentActivityName=".resultList">
+        <activity
+            android:name=".PostPage"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeForSignIn">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vin_s.cargo.MainActivity" />
         </activity>
-
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -61,7 +61,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vin_s.cargo.MainActivity" />
         </activity>
-        <activity android:name=".makeComments"></activity>
+        <activity android:name=".MakeComments" />
+        <activity
+            android:name=".UserRegistration"
+            android:label="@string/title_activity_signup"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppThemeForSignIn" />
+
+        <activity
+            android:name=".UserRegistrationFinalStep"
+            android:theme="@style/AppThemeForSignIn"
+            android:label="Tell us more about you"
+            android:parentActivityName=".UserRegistration"/>
+
     </application>
 
 </manifest>

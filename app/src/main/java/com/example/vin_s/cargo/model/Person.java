@@ -1,39 +1,62 @@
 package com.example.vin_s.cargo.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 //This is the person model
-public class Person
+public class Person implements Serializable
 {
-	String id; //assign everyone a personal int id?
-	String name;
-	String intro;
+	private String id;
+    private String email;
+	private String name;
+	private String intro;
+    private String password;
 	
 	//constructors
-	public Person(){}
-	
-	public Person(String n, String c, String i)
-	{
-		id = "pe" + UUID.randomUUID().toString();;;
-		name = n;
-		intro = i;
+	public Person(){
+		this.id = "pe" + UUID.randomUUID().toString();
 	}
 	
-	//setters	
-	public void setName(String name){
-		this.name = name;
+	public Person(String email, String name, String intro, String password)
+	{
+		this.id = "pe" + UUID.randomUUID().toString();
+		this.email = email;
+        this.name = name;
+		this.intro = intro;
+        this.password = password;
 	}
 
-	public void setIntro(String intro){
-		this.intro = intro;
+	public String getId() {
+		return id;
 	}
-	
-	//getters 
-	public String getName(){
+
+	public void setId(String id) {this.id = id;}
+
+    public String getEmail() {return email;}
+
+    public void setEmail(String email) {this.email = email;}
+
+	public String getName() {
 		return name;
 	}
 
-	public String getIntro(){
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getIntro() {
 		return intro;
 	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.vin_s.cargo.search"
+    tools:context=".Search"
     tools:showIn="@layout/activity_search"
     android:background="#ffffff">
 

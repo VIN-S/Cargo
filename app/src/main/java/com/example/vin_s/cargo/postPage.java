@@ -3,7 +3,7 @@ package com.example.vin_s.cargo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class postPage extends AppCompatActivity {
+public class PostPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

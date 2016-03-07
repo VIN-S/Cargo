@@ -3,7 +3,7 @@ package com.example.vin_s.cargo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class makeComments extends AppCompatActivity {
+public class MakeComments extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

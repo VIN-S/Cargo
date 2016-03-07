@@ -21,7 +21,7 @@ public class resultList extends AppCompatActivity {
 
     /** Called when the user clicks the block */
     public void showPostPage(View view) {
-        Intent intent = new Intent(this, postPage.class);
+        Intent intent = new Intent(this, PostPage.class);
         startActivity(intent);
     }
 }

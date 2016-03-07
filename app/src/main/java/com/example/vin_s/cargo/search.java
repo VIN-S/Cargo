@@ -165,14 +165,6 @@ public class search extends AppCompatActivity implements AdapterView.OnItemSelec
                     showSearchResult(v);
                 }
 
-
-                Toast.makeText(search.this,
-                        "OnClickListener : " +
-                                "\nSpinner 1 : "+ String.valueOf(spinner1.getSelectedItem()) +
-                                "\nSpinner 2 : "+ String.valueOf(spinner2.getSelectedItem()) +
-                                "\nDeparture Date : "+ departureDate,
-                        Toast.LENGTH_SHORT).show();
-
             }
 
         });
