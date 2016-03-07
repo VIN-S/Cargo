@@ -51,7 +51,7 @@
             android:layout_height="70px"
             android:id="@+id/destinationPicker"
             android:spinnerMode="dropdown"
-            android:entries="@array/search_origin"
+            android:entries="@array/search_destination"
             android:layout_below="@+id/originPicker"
             android:layout_toRightOf="@+id/searchDestination"
             android:layout_toEndOf="@+id/searchDestination"

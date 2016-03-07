@@ -8,7 +8,16 @@
         <item>Singapore</item>
         <item>Stockholm</item>
     </string-array>
+    <string-array name="search_destination">
+        <item>Any</item>
+        <item>America</item>
+        <item>China</item>
+        <item>Singapore</item>
+        <item>Stockholm</item>
+        <item>Iceland</item>
+    </string-array>
     <string name="origin_default">Any</string>
+    <string name="destination">Any</string>
     <string name="title_activity_login">Sign in</string>
     <string name="from_date">From Date</string>
 
