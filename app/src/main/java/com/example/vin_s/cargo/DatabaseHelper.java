@@ -134,6 +134,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_DURATION,post.getDuration());
         values.put(KEY_REQUIREMENTS,post.getRequirements());
 
+        //for testing use only
+        SQLiteDatabase dbtest = this.getWritableDatabase();
+        ContentValues test = new ContentValues();
+        test.put(KEY_ID, "1");
+        test.put(KEY_INTRO, "我傻逼我自豪");
+        test.put(KEY_NAME, "傻逼李昊");
+        test.put(KEY_EMAIL, "sb123");
+        test.put(KEY_PASSWORD, "sb123");
+        dbtest.replace(TABLE_PEOPLE, null, test);
+
  
         // insert row
         long todo_id = db.insert(TABLE_POST, null, values);
@@ -453,6 +463,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectQuery = "SELECT  * FROM " + TABLE_PEOPLE + " WHERE EMAIL = '" + email + "'";
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null){
+            c.moveToFirst();
+
+            Person user = new Person();
+            user.setId(c.getString((c.getColumnIndex(KEY_ID))));
+            user.setEmail(c.getString(c.getColumnIndex(KEY_EMAIL)));
+            user.setName((c.getString(c.getColumnIndex(KEY_NAME))));
+            user.setIntro(c.getString(c.getColumnIndex(KEY_INTRO)));
+            user.setPassword(c.getString(c.getColumnIndex(KEY_PASSWORD)));
+            return user;
+
+        }else{
+            return null;
+        }
+    }
+
+    //Retrieve particular user
+    public Person getUserByID(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_PEOPLE + " WHERE ID = '" + id + "'";
 
         Log.e(LOG, selectQuery);
 

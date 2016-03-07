@@ -46,15 +46,13 @@
             android:background="@drawable/postpage" />
 
         <TextView
-            android:id="@+id/myImageViewText"
+            android:id="@+id/post_page_slogan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/myImageView"
             android:layout_alignBottom="@id/myImageView"
             android:layout_margin="20dp"
             android:gravity="left"
-            android:text="Join us to Lÿòveldiò ísland
-            Three more seats left"
             android:textColor="#fbfbfb" />
     </RelativeLayout>
 
@@ -93,7 +91,7 @@
                     android:layout_marginLeft="25px"
                     android:layout_marginTop="40px"
                     android:textSize="16dp"
-                    android:text="Radiohead                         2016-03-03 07:56"
+                    android:id="@+id/post_page_createrName"
                     android:textColor="#000000"/>
                 <TextView
                     android:layout_width="wrap_content"
