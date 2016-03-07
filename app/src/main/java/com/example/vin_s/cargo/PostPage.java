@@ -2,8 +2,10 @@ package com.example.vin_s.cargo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
+import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Person;
 import com.example.vin_s.cargo.model.Post;
 
@@ -87,5 +89,13 @@ public class PostPage extends AppCompatActivity{
         creator = dbHandler.getUserByID(personID);
 
         return creator;
+    }
+
+    public void submitComment(View view){
+        DatabaseHelper dbHandler = new DatabaseHelper(this);
+
+        Comment comment = new Comment();
+
+        dbHandler.createComment(comment);
     }
 }
