@@ -123,7 +123,6 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
     /** Called when the user clicks the Search button */
     public void showSearchResult(View view) {
         Intent intent = new Intent(this, ResultList.class);
-        intent.putExtra("test", "testing_display");
         intent.putExtra("resultList", (Serializable) posts);
         startActivity(intent);
     }

@@ -13,6 +13,7 @@ import java.util.*;
 public class ResultList extends AppCompatActivity {
 
     private TextView org_des;
+    private TextView content;
     private List<Post> posts = new ArrayList<Post>();
 
 
@@ -22,10 +23,18 @@ public class ResultList extends AppCompatActivity {
         setContentView(R.layout.activity_result_list);
         String testing = getIntent().getStringExtra("test");
         org_des = (TextView) findViewById(R.id.org_des);
-        //org_des.setText(testing);
+        content = (TextView) findViewById(R.id.postContent);
+
         posts = (List<Post>) getIntent().getSerializableExtra("resultList");
-        if(!posts.isEmpty()){
+        if(posts.isEmpty()) {
+            org_des.setText("Sorry! There s no trip available!");
+            content.setText("Please search again!");
+            System.out.printf("is empty");
+        }
+        else {
             org_des.setText((String)posts.get(0).getOrigin());
+            content.setText((String)posts.get(0).getDuration());
+            System.out.printf("not empty");
         }
     }
 
