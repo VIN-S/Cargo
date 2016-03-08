@@ -1,7 +1,9 @@
 package com.example.vin_s.cargo;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -13,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -74,6 +78,16 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         //dbHelper.onCreate(dbHelper.getWritableDatabase());
         //dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 2);
         addListenerOnButton();
+
+        SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userName = prefs.getString("nameKey", null);
+
+        if(userName == null){
+            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.search_tab_bar);
+            tabBarLayout.setVisibility(LinearLayout.GONE);
+            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.search_scrollView);
+            searchScroll.setMinimumHeight(500);
+        }
     }
 
     @Override
@@ -131,13 +145,13 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         startActivity(intent);
     }
 
-    public void redirectToMessage(View view){
-        Intent intent = new Intent(this, MyProfile.class);
+    public void redirectToCreatePost(View view){
+        Intent intent = new Intent(this, PostActivity.class);
         startActivity(intent);
     }
 
     public void redirectToSettings(View view){
-        Intent intent = new Intent(this, MyProfile.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

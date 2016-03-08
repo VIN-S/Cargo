@@ -72,6 +72,7 @@
             android:label="Tell us more about you"
             android:parentActivityName=".UserRegistration"
             android:theme="@style/AppThemeForSignIn" />
+        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>
