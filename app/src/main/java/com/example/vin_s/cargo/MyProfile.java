@@ -1,5 +1,7 @@
 package com.example.vin_s.cargo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -20,11 +22,12 @@ public class MyProfile extends AppCompatActivity {
         userNicknameView = (TextView) findViewById(R.id.user_nickname);
         userIntroView = (TextView) findViewById(R.id.user_intro);
 
-        user = (Person) getIntent().getSerializableExtra("NEW_USER");
+        SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userName = prefs.getString("nameKey", null);
+        String userIntro = prefs.getString("nameIntro", null);
 
-        userNicknameView.setText(user.getName());
-        userIntroView.setText(user.getIntro());
-
+        userNicknameView.setText(userName);
+        userIntroView.setText(userIntro);
     }
 
 }
