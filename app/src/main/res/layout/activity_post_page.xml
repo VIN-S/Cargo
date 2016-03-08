@@ -21,7 +21,8 @@
         android:layout_marginRight="20px"
         android:background="#e7e6e6"
         android:paddingBottom="10px"
-        android:paddingTop="10px"/>
+        android:paddingTop="10px"
+        android:gravity="center"/>
 
     <ScrollView
         android:layout_width="fill_parent"
