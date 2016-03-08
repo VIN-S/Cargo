@@ -1,20 +1,23 @@
 package com.example.vin_s.cargo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
-import android.view.View.OnClickListener;
+
 import com.example.vin_s.cargo.model.Post;
 
-import org.w3c.dom.Text;
-
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ResultList extends AppCompatActivity {
@@ -133,6 +136,16 @@ public class ResultList extends AppCompatActivity {
                 loop.addView(child);
             }
         }
+
+        SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userName = prefs.getString("nameKey", null);
+
+        if(userName == null){
+            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.resultlist_tab_bar);
+            tabBarLayout.setVisibility(LinearLayout.GONE);
+            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.search_scrollView);
+            searchScroll.setMinimumHeight(500);
+        }
     }
 
     /** Called when the user clicks the block */
@@ -142,4 +155,25 @@ public class ResultList extends AppCompatActivity {
         intent.putExtra("selectedPost" , selectedPost);
         startActivity(intent);
     }
+
+    public void redirectToProfile(View view){
+        Intent intent = new Intent(this, MyProfile.class);
+        startActivity(intent);
+    }
+
+    public void redirectToCreatePost(View view){
+        Intent intent = new Intent(this, PostActivity.class);
+        startActivity(intent);
+    }
+
+    public void redirectToSettings(View view){
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+    }
+
+    public void redirectToHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
