@@ -163,72 +163,93 @@ public class PostPage extends AppCompatActivity {
 
         TextView commentsNumber = new TextView(this);
         LinearLayout.LayoutParams lpT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        lpT.setMargins(10, 10, 0, 30);
+        lpT.setMargins(10, 10, 0, 10);
         commentsNumber.setLayoutParams(lpT);
         commentsNumber.setTextSize(14);
         commentsNumber.setTextColor(0XFF000000);
         String temp = "Comments (" + commentNumber + ") :";
-        commentsNumber.setText((String)temp);
+        commentsNumber.setText((String) temp);
 
         commentTitleLayout.addView(commentsNumber);
 
         commentLayout.addView(commentTitleLayout);
 
+        View viewT = new View(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,1);
+        lp.setMargins(0, 20, 0, 20);
+        viewT.setLayoutParams(lp);
+        viewT.setBackgroundColor(0XFF000000);
+        commentLayout.addView(viewT);
+
+
+        for(int i=0;i<commentNumber;i++) {
 //      layout for each comment (for loop)
-        //commentsLayout include image and commentContentLayout
-        LinearLayout commentsLayout = new LinearLayout(this);
-        commentsLayout.setOrientation(LinearLayout.HORIZONTAL);
-        commentsLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+            Comment cc = (Comment) comments.get(i);
+            String userID = cc.getOwnerID();
+            Person user = dbHelper.getUserByID(userID);
+            String username = user.getName();
 
-        ImageView image = new ImageView(this);
-        image.setImageResource(R.drawable.result_2);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(80,80);
-        lp.setMargins(20, 10, 0, 50);
-        image.setLayoutParams(lp);
+            //commentsLayout include image and commentContentLayout
+            LinearLayout commentsLayout = new LinearLayout(this);
+            commentsLayout.setOrientation(LinearLayout.HORIZONTAL);
+            commentsLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
 
-        //include few textview
-        LinearLayout commentContentLayout = new LinearLayout(this);
-        commentContentLayout.setOrientation(LinearLayout.VERTICAL);
-        commentContentLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+            ImageView image = new ImageView(this);
+            image.setImageResource(R.drawable.result_2);
+            LinearLayout.LayoutParams lpI = new LinearLayout.LayoutParams(80, 80);
+            lpI.setMargins(20, 10, 0, 50);
+            image.setLayoutParams(lpI);
 
-        View viewContent = new View(this);
-        LinearLayout.LayoutParams lpVV = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 1);
-        viewContent.setLayoutParams(lpVV);
+            //include few textview
+            LinearLayout commentContentLayout = new LinearLayout(this);
+            commentContentLayout.setOrientation(LinearLayout.VERTICAL);
+            commentContentLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
 
-        TextView commentUser = new TextView(this);
-        TextView commentTime = new TextView(this);
-        TextView commentContent = new TextView(this);
-        LinearLayout.LayoutParams lpTT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        lpTT.setMargins(10, 10, 0, 10);
-        LinearLayout.LayoutParams lpTTT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        lpTTT.setMargins(10, 0, 0, 10);
-        LinearLayout.LayoutParams lpUser = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        lpUser.setMargins(10, 10, 0, 0);
-        commentUser.setLayoutParams(lpUser);
-        commentTime.setLayoutParams(lpTTT);
-        commentContent.setLayoutParams(lpTT);
-        commentUser.setTextColor(0XFF000000);
-        commentUser.setText("Username");
-        commentUser.setTextSize(14);
+            TextView commentUser = new TextView(this);
+            TextView commentTime = new TextView(this);
+            TextView commentContent = new TextView(this);
+            LinearLayout.LayoutParams lpTT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            lpTT.setMargins(10, 10, 0, 10);
+            LinearLayout.LayoutParams lpTTT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            lpTTT.setMargins(10, 0, 0, 10);
+            LinearLayout.LayoutParams lpUser = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            lpUser.setMargins(10, 10, 0, 0);
+            commentUser.setLayoutParams(lpUser);
+            commentTime.setLayoutParams(lpTTT);
+            commentContent.setLayoutParams(lpTT);
+            commentUser.setTextColor(0XFF000000);
+            commentUser.setText(username);
+            commentUser.setTextSize(14);
 
-        //commentTime.setTextColor(0XFF000000);
-        commentTime.setText("comment date and time");
-        commentTime.setTextSize(12);
+            View view = new View(this);
+            LinearLayout.LayoutParams lpV = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,1);
+            lpV.setMargins(0, 20, 0, 20);
+            view.setLayoutParams(lpV);
+            view.setBackgroundColor(0XFF000000);
 
-        commentContent.setTextColor(0XFF000000);
-        commentContent.setText("comment content ballall");
-        commentContent.setTextSize(14);
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+            Date commentDate = cc.getDateOfComment();
+            String dateC = df.format(commentDate);
+            //06-03-2016 02:50
+            //commentTime.setTextColor(0XFF000000);
+            commentTime.setText(dateC);
+            commentTime.setTextSize(12);
 
-        commentContentLayout.addView(commentUser);
-        commentContentLayout.addView(commentTime);
-        commentContentLayout.addView(viewContent);
-        commentContentLayout.addView(commentContent);
+            commentContent.setTextColor(0XFF000000);
+            commentContent.setText(cc.getContent());
+            commentContent.setTextSize(14);
 
-        commentsLayout.addView(image);
-        commentsLayout.addView(commentContentLayout);
-        commentLayout.addView(commentsLayout);
+            commentContentLayout.addView(commentUser);
+            commentContentLayout.addView(commentTime);
+            commentContentLayout.addView(commentContent);
+
+            commentsLayout.addView(image);
+            commentsLayout.addView(commentContentLayout);
+
+            commentLayout.addView(commentsLayout);
+            commentLayout.addView(view);
 //
-
+        }
     }
 
     public Person setCreaterInfo(String personID) {
