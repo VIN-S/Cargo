@@ -389,6 +389,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //get Post by postID
+    public Post getPostByID(String postID) throws ParseException {
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Post p = new Post();
+        String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
+                + KEY_ID + " = '" + postID + "'";
+        Log.e(LOG, selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                p.setId(c.getString(c.getColumnIndex(KEY_ID)));
+                p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
+                p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
+                p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
+                p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
+                p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
+                p.setCarType(c.getString(c.getColumnIndex(KEY_CARTYPE)));
+                p.setDetails(c.getString(c.getColumnIndex(KEY_DETAILS)));
+                p.setNumberOfSeats(c.getInt(c.getColumnIndex(KEY_NUMBEROFSEATS)));
+                p.setRequirements(c.getString(c.getColumnIndex(KEY_REQUIREMENTS)));
+                p.setSeatsLeft(c.getInt(c.getColumnIndex(KEY_SEATLEFT)));
+                // adding to todo list
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return p;
+    }
 
     //create person
     public long createPerson(Person person){

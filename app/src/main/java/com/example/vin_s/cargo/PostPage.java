@@ -32,6 +32,7 @@ public class PostPage extends AppCompatActivity{
     private TextView seatsLeft;
     private TextView requirements;
     private Boolean createPostOrNot = false;
+    private Boolean selectPostOrNot = false;
     private Person creator;
 
     @Override
@@ -39,9 +40,50 @@ public class PostPage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_page);
 
+        selectPostOrNot = (Boolean) getIntent().getSerializableExtra("selectPostOrNot");
         createPostOrNot = (Boolean) getIntent().getSerializableExtra("createPost");
 
-        if(createPostOrNot) {
+        if(selectPostOrNot){
+            postSelected = (Post) getIntent().getSerializableExtra("selectedPost");
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+            creator = setCreaterInfo(postSelected.getOwnerID());
+
+//          find related display in postpage layout
+            title = (TextView) findViewById(R.id.post_page_title);
+            slogan = (TextView) findViewById(R.id.post_page_slogan);
+            creatorName = (TextView) findViewById(R.id.post_page_creatorName);
+            details = (TextView) findViewById(R.id.post_page_detail);
+            car = (TextView) findViewById(R.id.post_page_car);
+            origin = (TextView) findViewById(R.id.post_page_origin);
+            destination = (TextView) findViewById(R.id.post_page_destination);
+            departureDate = (TextView) findViewById(R.id.post_page_departure_date);
+            duration = (TextView) findViewById(R.id.post_page_duration);
+            numOfSeats = (TextView) findViewById(R.id.post_page_number_seats);
+            seatsLeft = (TextView) findViewById(R.id.post_page_seats_left);
+            requirements = (TextView) findViewById(R.id.post_page_requirements);
+
+//          set content for layout
+            title.setText(postSelected.getTitle().toString());
+            slogan.setText(postSelected.getSlogan().toString());
+            creatorName.setText(creator.getName());
+            details.setText(postSelected.getDetails().toString());
+            car.setText("Car: " + postSelected.getCarType().toString());
+            origin.setText("Origin: " + postSelected.getOrigin().toString());
+            destination.setText("Destination: " + postSelected.getDest().toString());
+            try {
+                departureDate.setText("Departure Date: " + df.format(postSelected.getDate()).toString());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            duration.setText("Duration: " + postSelected.getDuration().toString());
+            numOfSeats.setText("Number of Seats: " + postSelected.getNumberOfSeats());
+            seatsLeft.setText("Seats Left: " + postSelected.getSeatsLeft());
+            requirements.setText("Special Requirements: " + postSelected.getRequirements());
+        }
+
+        else if(createPostOrNot) {
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
 //          find related display in postpage layout

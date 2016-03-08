@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.FrameLayout.LayoutParams;
+import android.view.View.OnClickListener;
 import com.example.vin_s.cargo.model.Post;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
 import java.util.*;
 
 
@@ -19,7 +21,8 @@ public class ResultList extends AppCompatActivity {
 
     private LinearLayout loop;
     private List<Post> posts = new ArrayList<Post>();
-
+    private Post selectedPost;
+    private DatabaseHelper dbHelper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,13 @@ public class ResultList extends AppCompatActivity {
         else {
             for(int l=0; l<num; l++)
             {
+                String postID = (String) posts.get(l).getId();
+                try {
+                    selectedPost = dbHelper.getPostByID(postID);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 String org = (String)posts.get(l).getOrigin();
                 String des = (String)posts.get(l).getDest();
                 String duration = (String) posts.get(l).getDuration();
@@ -60,6 +70,14 @@ public class ResultList extends AppCompatActivity {
                 LinearLayout child = new LinearLayout(this);
                 child.setOrientation(LinearLayout.VERTICAL);
                 child.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                //set onclick action
+                OnClickListener button_click = new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showPostPage(v);
+                    }
+                };
+                child.setOnClickListener(button_click);
 
                 //child1 include imageview, finalc
                 LinearLayout child1 = new LinearLayout(this);
@@ -120,6 +138,8 @@ public class ResultList extends AppCompatActivity {
     /** Called when the user clicks the block */
     public void showPostPage(View view) {
         Intent intent = new Intent(this, PostPage.class);
+        intent.putExtra("selectPostOrNot", true);
+        intent.putExtra("selectedPost" , selectedPost);
         startActivity(intent);
     }
 }
