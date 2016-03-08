@@ -144,8 +144,6 @@
 
         </ScrollView>
 
-
-
     <LinearLayout
         android:id="@+id/search_tab_bar"
         android:orientation="horizontal"
@@ -154,35 +152,45 @@
         android:gravity="bottom">
 
         <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
-            android:id="@+id/sarch_saerch_button"
-            android:background="@drawable/search_icon_current"
-            android:layout_alignParentBottom="true" />
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/search_home_button"
+            android:background="@drawable/main_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToHome"/>
 
         <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
-            android:id="@+id/sarch_profile_button"
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/search_search_button"
+            android:background="@drawable/search_icon_current"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToSearch"/>
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/search_message_button"
+            android:background="@drawable/createpost_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToCreatePost"/>
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/search_profile_button"
             android:background="@drawable/profile_icon"
             android:layout_alignParentBottom="true"
             android:onClick="redirectToProfile"/>
 
-        <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
-            android:id="@+id/search_message_button"
-            android:background="@drawable/createpost_icon"
-            android:layout_alignParentBottom="true"
-            android:onClick="redirectToCreatePost" />
 
         <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
+            android:layout_width="72dp"
+            android:layout_height="50dp"
             android:id="@+id/search_setting_button"
             android:background="@drawable/settings_icon"
             android:layout_alignParentBottom="true"
-            android:onClick="redirectToSettings" />
+            android:onClick="redirectToSettings"/>
 
     </LinearLayout>
 </LinearLayout>

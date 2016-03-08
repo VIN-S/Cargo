@@ -19,16 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.io.Serializable;
-import java.text.ParseException;
-import java.util.*;
 import android.widget.Toast;
 
 import com.example.vin_s.cargo.model.Post;
 
+import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -152,6 +152,11 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
     public void redirectToSettings(View view){
         Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+    }
+
+    public void redirectToHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

@@ -92,31 +92,40 @@
         android:gravity="bottom">
 
         <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/profile_home_button"
+            android:background="@drawable/main_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToHome"/>
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
             android:id="@+id/profile_saerch_button"
             android:background="@drawable/search_icon"
             android:layout_alignParentBottom="true"
             android:onClick="redirectToSearch"/>
 
         <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
-            android:id="@+id/profile_profile_button"
-            android:background="@drawable/profile_icon_current"
-            android:layout_alignParentBottom="true" />
-
-        <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
+            android:layout_width="72dp"
+            android:layout_height="50dp"
             android:id="@+id/profile_message_button"
             android:background="@drawable/createpost_icon"
             android:layout_alignParentBottom="true"
             android:onClick="redirectToPost"/>
 
         <Button
-            android:layout_width="90dp"
-            android:layout_height="80dp"
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/profile_profile_button"
+            android:background="@drawable/profile_icon_current"
+            android:layout_alignParentBottom="true" />
+
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
             android:id="@+id/profile_setting_button"
             android:background="@drawable/settings_icon"
             android:layout_alignParentBottom="true"

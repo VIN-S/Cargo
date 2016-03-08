@@ -156,4 +156,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
+
+    public  void redirectToHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
