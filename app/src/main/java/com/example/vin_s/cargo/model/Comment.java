@@ -2,6 +2,7 @@ package com.example.vin_s.cargo.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by Howard on 7/3/16.
@@ -13,7 +14,18 @@ public class Comment implements Serializable{
     private String ownerID;
     private String content;
     private Date dateOfComment;
-    private String replyTo; //Store the id of the comment that this comment is replying to
+
+    public Comment() {
+        this.id = "com" + UUID.randomUUID().toString();
+    }
+
+    public Comment(String postID, String ownerID, String content, Date dateOfComment, String replyTo) {
+        this.id = "com" + UUID.randomUUID().toString();
+        this.postID = postID;
+        this.ownerID = ownerID;
+        this.content = content;
+        this.dateOfComment = dateOfComment;
+    }
 
     public String getId() {
         return id;
@@ -55,11 +67,4 @@ public class Comment implements Serializable{
         this.dateOfComment = dateOfComment;
     }
 
-    public String getReplyTo() {
-        return replyTo;
-    }
-
-    public void setReplyTo(String replyTo) {
-        this.replyTo = replyTo;
-    }
 }

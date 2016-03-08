@@ -1,110 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Search"
-    tools:showIn="@layout/activity_search"
-    android:background="#ffffff">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="480px"
-        android:id="@+id/imageView"
-        android:background="@drawable/search_banner"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentEnd="false" />
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Destination:"
-            android:id="@+id/searchDestination"
-            android:textColor="#6b6868"
-        android:textSize="20dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_below="@+id/originPicker"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="70px"
-            android:id="@+id/originPicker"
-            android:spinnerMode="dropdown"
-            android:entries="@array/search_origin"
-            android:layout_below="@+id/imageView"
-            android:layout_alignLeft="@+id/destinationPicker"
-            android:layout_alignStart="@+id/destinationPicker"
-            android:layout_marginTop="46dp"/>
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="70px"
-            android:id="@+id/destinationPicker"
-            android:spinnerMode="dropdown"
-            android:entries="@array/search_destination"
-            android:layout_below="@+id/originPicker"
-            android:layout_toRightOf="@+id/searchDestination"
-            android:layout_toEndOf="@+id/searchDestination"
-            android:layout_marginLeft="46dp"
-            android:layout_marginStart="46dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Origin:"
-        android:id="@+id/searchOrigin"
-        android:textColor="#6b6868"
-        android:layout_marginTop="7dp"
-        android:textSize="20dp"
-        android:layout_alignTop="@+id/originPicker"
-        android:layout_alignLeft="@+id/searchDestination"
-        android:layout_alignStart="@+id/searchDestination" />
-
-    <EditText
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+    <!--tools:context=".Search"-->
+    <!--tools:showIn="@layout/activity_search"-->
+    <!--android:background="#ffffff">-->
+    
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/departureDate"
-        android:textColor="#6b6868"
-        android:layout_weight=".5"
-        android:hint="@string/from_date"
-        android:layout_alignTop="@+id/departureDateText"
-        android:layout_alignLeft="@+id/destinationPicker"
-        android:layout_alignStart="@+id/destinationPicker" />
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Departure Date"
-        android:id="@+id/departureDateText"
-        android:textSize="20dp"
-        android:layout_marginTop="7dp"
-        android:layout_below="@+id/destinationPicker"
-        android:layout_alignLeft="@+id/searchDestination"
-        android:layout_alignStart="@+id/searchDestination" />
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="420dp"
+            android:layout_marginBottom="10dp">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="480px"
+                    android:id="@+id/imageView"
+                    android:background="@drawable/search_banner"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="false"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentEnd="false" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Origin:"
+                        android:id="@+id/searchOrigin"
+                        android:textColor="#6b6868"
+                        android:layout_marginTop="40dp"
+                        android:textSize="20dp"
+                        android:layout_alignTop="@+id/originPicker"
+                        android:layout_marginLeft="100dp" />
+
+                    <Spinner
+                        android:layout_width="157dp"
+                        android:layout_height="38dp"
+                        android:id="@+id/originPicker"
+                        android:spinnerMode="dropdown"
+                        android:entries="@array/search_origin"
+                        android:layout_below="@+id/imageView"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="    Destination:"
+                        android:id="@+id/searchDestination"
+                        android:textColor="#6b6868"
+                        android:textSize="20dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_below="@+id/originPicker"
+                        android:layout_alignRight="@+id/searchOrigin" />
+
+                    <Spinner
+                        android:layout_width="157dp"
+                        android:layout_height="38dp"
+                        android:id="@+id/destinationPicker"
+                        android:spinnerMode="dropdown"
+                        android:entries="@array/search_destination"
+                        android:layout_below="@+id/originPicker"
+                        android:layout_toRightOf="@+id/searchDestination"
+                        android:layout_toEndOf="@+id/searchDestination"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="    Departure Date:"
+                        android:id="@+id/departureDateText"
+                        android:textSize="20dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_below="@+id/destinationPicker"
+                        android:layout_alignLeft="@+id/searchDestination"
+                        android:layout_alignStart="@+id/searchDestination" />
+
+                    <EditText
+                        android:layout_width="50dp"
+                        android:layout_height="38dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/departureDate"
+                        android:textColor="#6b6868"
+                        android:layout_weight="0.17"
+                        android:hint="@string/from_date"
+                        android:layout_alignTop="@+id/departureDateText"
+                        android:layout_marginLeft="20dp" />
+
+                </LinearLayout>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search"
+                    android:id="@+id/search_button"
+                    android:background="#38ade8"
+                    android:layout_below="@+id/departureDateText"
+                    android:layout_marginTop="30dp"
+                    android:onClick="showSearchResult"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+    <LinearLayout
+        android:id="@+id/search_tab_bar"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/search_button"
-        android:background="#38ade8"
-        android:layout_below="@+id/departureDateText"
-        android:layout_marginTop="30dp"
-        android:onClick="showSearchResult"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="match_parent"
+        android:gravity="bottom">
 
-</RelativeLayout>
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/sarch_saerch_button"
+            android:background="@drawable/search_icon_current"
+            android:layout_alignParentBottom="true" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/sarch_profile_button"
+            android:background="@drawable/profile_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToProfile"/>
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/search_message_button"
+            android:background="@drawable/message_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToMessage" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:id="@+id/search_setting_button"
+            android:background="@drawable/settings_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToSettings" />
+
+    </LinearLayout>
+</LinearLayout>
+<!--</RelativeLayout>-->

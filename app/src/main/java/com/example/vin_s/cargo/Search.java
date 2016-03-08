@@ -71,9 +71,8 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         findViewsById();
         setDateTimeField();
 
-//        dbHelper.onCreate(dbHelper.getWritableDatabase());
-        dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 2);
-
+        //dbHelper.onCreate(dbHelper.getWritableDatabase());
+        //dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 2);
         addListenerOnButton();
     }
 
@@ -123,8 +122,22 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
     /** Called when the user clicks the Search button */
     public void showSearchResult(View view) {
         Intent intent = new Intent(this, ResultList.class);
-        intent.putExtra("test", "testing_display");
         intent.putExtra("resultList", (Serializable) posts);
+        startActivity(intent);
+    }
+
+    public void redirectToProfile(View view){
+        Intent intent = new Intent(this, MyProfile.class);
+        startActivity(intent);
+    }
+
+    public void redirectToMessage(View view){
+        Intent intent = new Intent(this, MyProfile.class);
+        startActivity(intent);
+    }
+
+    public void redirectToSettings(View view){
+        Intent intent = new Intent(this, MyProfile.class);
         startActivity(intent);
     }
 
@@ -153,7 +166,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
                 origin = String.valueOf(spinner1.getSelectedItem());
                 destination = String.valueOf(spinner2.getSelectedItem());
-                departureDate = depDate.getText().toString();
+                departureDate = depDate.getText().toString(); //dd-mm-yyyy
 
                 if(TextUtils.isEmpty(departureDate)) {
                     depDate.setError("Cannot be Empty");

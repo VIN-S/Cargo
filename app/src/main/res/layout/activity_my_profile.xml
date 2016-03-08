@@ -85,6 +85,7 @@
 
 
     <LinearLayout
+        android:id="@+id/profile_tab_bar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -93,7 +94,7 @@
         <Button
             android:layout_width="90dp"
             android:layout_height="80dp"
-            android:id="@+id/saerch_button"
+            android:id="@+id/profile_saerch_button"
             android:background="@drawable/search_icon"
             android:layout_alignParentBottom="true"
             android:onClick="redirectToSearch"/>
@@ -101,21 +102,21 @@
         <Button
             android:layout_width="90dp"
             android:layout_height="80dp"
-            android:id="@+id/profile_button"
+            android:id="@+id/profile_profile_button"
             android:background="@drawable/profile_icon_current"
             android:layout_alignParentBottom="true" />
 
         <Button
             android:layout_width="90dp"
             android:layout_height="80dp"
-            android:id="@+id/message_button"
+            android:id="@+id/profile_message_button"
             android:background="@drawable/message_icon"
             android:layout_alignParentBottom="true" />
 
         <Button
             android:layout_width="90dp"
             android:layout_height="80dp"
-            android:id="@+id/setting_button"
+            android:id="@+id/profile_setting_button"
             android:background="@drawable/settings_icon"
             android:layout_alignParentBottom="true" />
 

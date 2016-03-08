@@ -57,8 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_POSTID = "postID";
     private static final String KEY_CONTENT = "content";
     private static final String KEY_DATE_OF_COMMENT = "dateOfComment";
-    private static final String KEY_REPLYTO = "replyTo";
-    
+
     //Shared Column names
     private static final String KEY_ID = "ID";
     private static final String KEY_OWNERID = "ownerID";
@@ -84,8 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Create comment statements
     private static final String CREATE_TABLE_COMMENT = "CREATE TABLE IF NOT EXISTS "
             + TABLE_COMMENT + "(" + KEY_ID + " TEXT PRIMARY KEY," + KEY_POSTID
-            + " TEXT," + KEY_OWNERID + " TEXT," + KEY_CONTENT + "  TEXT," + KEY_DATE + " DATE," + KEY_REPLYTO + " TEXT, FOREIGN KEY ("
-            + KEY_OWNERID + ") REFERENCES " + TABLE_PEOPLE + "(" + KEY_ID + "), FOREIGN KEY (" + KEY_POSTID + ") REFERENCES " + TABLE_POST + "(" + KEY_ID + "))";
+            + " TEXT," + KEY_OWNERID + " TEXT," + KEY_CONTENT + "  TEXT," + KEY_DATE + " DATE, FOREIGN KEY (" + KEY_POSTID + ") REFERENCES " + TABLE_POST + "(" + KEY_ID + "))";
 
     //Drop Person Table
     private static final String DROP_TABLE_PEOPLE = "DROP TABLE " + TABLE_PEOPLE;
@@ -104,7 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_COMMENT);
 //        db.execSQL(CREATE_TABLE_PPL_POST);
     }
- 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // on upgrade drop older tables
@@ -114,11 +112,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // create new tables
         onCreate(db);
     }
-    
+
     public long createPost(Post post) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         SQLiteDatabase db = this.getWritableDatabase();
- 
+
         ContentValues values = new ContentValues();
         values.put(KEY_ID, post.getId());
         values.put(KEY_OWNERID, post.getOwnerID());
@@ -128,31 +126,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TITLE, post.getTitle());
         values.put(KEY_SLOGAN, post.getSlogan());
         values.put(KEY_CARTYPE,post.getCarType());
-        values.put(KEY_NUMBEROFSEATS,post.getNumberOfSeats());
+        values.put(KEY_NUMBEROFSEATS, post.getNumberOfSeats());
         values.put(KEY_SEATLEFT, post.getSeatsLeft());
         values.put(KEY_DETAILS, post.getDetails());
         values.put(KEY_DURATION, post.getDuration());
         values.put(KEY_REQUIREMENTS, post.getRequirements());
 
- 
+        //for testing use only
+        SQLiteDatabase dbtest = this.getWritableDatabase();
+        ContentValues test = new ContentValues();
+        test.put(KEY_ID, "1");
+        test.put(KEY_INTRO, "我傻逼我自豪");
+        test.put(KEY_NAME, "傻逼孙狗");
+        test.put(KEY_EMAIL, "sb123");
+        test.put(KEY_PASSWORD, "sb123");
+        dbtest.replace(TABLE_PEOPLE, null, test);
+
         // insert row
         long todo_id = db.insert(TABLE_POST, null, values);
         return todo_id;
     }
-    
-    
+
+
     //get one post
     public Post getPost(String post_id) throws ParseException {
         SQLiteDatabase db = this.getReadableDatabase();
         DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
- 
+
         String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
                 + KEY_ID + " = " + post_id;
- 
+
         Log.e(LOG, selectQuery);
 
         Cursor c = db.rawQuery(selectQuery, null);
- 
+
         if (c != null)
             c.moveToFirst();
 
@@ -162,21 +169,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
         p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
         p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
- 
+        c.close();
         return p;
     }
-    
+
     //get all posts
     public List<Post> getAllPosts() throws ParseException {
         List<Post> posts = new ArrayList<Post>();
         String selectQuery = "SELECT  * FROM " + TABLE_POST;
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-     
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
         Log.e(LOG, selectQuery);
-     
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
-     
+
+        if(!c.moveToFirst()){
+            return posts;
+        }
+
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
@@ -186,35 +197,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
                 p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
                 p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
-     
+
                 // adding to todo list
                 posts.add(p);
             } while (c.moveToNext());
         }
-     
+        c.close();
         return posts;
     }
 
     //get all posts by origin, destination and departure date (includeing "any")
     public List<Post> getAllPostsByOD (String org, String des, String dDate) throws ParseException {
         List<Post> posts = new ArrayList<Post>();
-        DateFormat df1 = new SimpleDateFormat("MM-dd-yyyy");
-        DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
-        Date dateTemp = df1.parse(dDate);
-        String temp = df2.format(dateTemp);
-        Date depDate = df2.parse(temp);
+
+        DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+        Date depDate = df1.parse(dDate);
+        String temp = df2.format(depDate);
+
 
         //origin = any
         if(org.equals("Any")&&!des.equals("Any")){
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                    + KEY_DEST + " = '" + des +"'" + "&&"
-                    + KEY_DATE + " = '" + depDate + "'";
+                    + KEY_DEST + " = '" + des +"'" + "AND "
+                    + KEY_DATE + " >= '" + dDate +"'";
 
             Log.e(LOG, selectQuery);
 
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor c = db.rawQuery(selectQuery, null);
+
+            if(!c.moveToFirst()){
+                return posts;
+            }
 
             // looping through all rows and adding to list
             if (c.moveToFirst()) {
@@ -225,20 +241,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
                     p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
                     p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
+                    p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                    p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
                     posts.add(p);
                 } while (c.moveToNext());
             }
+            c.close();
             return posts;
         }//destination = any
         else if(des.equals("Any")&&!org.equals("Any")){
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                    + KEY_ORIGIN + " = '" + org +"'" + "&&"
-                    + KEY_DATE + " = '" + depDate + "'";
+                    + KEY_ORIGIN + " = '" + org +"'" + " AND "
+                    + KEY_DATE + " >= '" + dDate + "'";
             Log.e(LOG, selectQuery);
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor c = db.rawQuery(selectQuery, null);
+
+            if(!c.moveToFirst()){
+                return posts;
+            }
 
             // looping through all rows and adding to list
             if (c.moveToFirst()) {
@@ -249,21 +273,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
                     p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
                     p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
+                    p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                    p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
                     posts.add(p);
                 } while (c.moveToNext());
             }
+            c.close();
             return posts;
         }//both origin and destination are any
-        else if(org.equals("Any")&&des.equals("Any")){
+        else if(org.equals("Any") && des.equals("Any")){
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                    + KEY_DATE + " = '" + depDate + "'";
-
+            String selectQuery = "SELECT * FROM post WHERE "
+                    + KEY_DATE + " >= '" + dDate + "'";
             Log.e(LOG, selectQuery);
 
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor c = db.rawQuery(selectQuery, null);
+
+            if(!c.moveToFirst()){
+                return posts;
+            }
 
             // looping through all rows and adding to list
             if (c.moveToFirst()) {
@@ -274,23 +305,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
                     p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
                     p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
+                    p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                    p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
                     posts.add(p);
                 } while (c.moveToNext());
             }
+            c.close();
             return posts;
         }//both not any
         else{
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                    + KEY_ORIGIN + " = '" + org + "'" + "&&"
-                    + KEY_DEST + " = '" + des +"'" + "&&"
-                    + KEY_DATE + " = '" + depDate + "'";
+                    + KEY_ORIGIN + " = '" + org + "'" + " AND "
+                    + KEY_DEST + " = '" + des +"'" + " AND "
+                    + KEY_DATE + " >= '" + dDate + "'";
 
             Log.e(LOG, selectQuery);
 
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor c = db.rawQuery(selectQuery, null);
+
+            if(!c.moveToFirst()){
+                return posts;
+            }
 
             // looping through all rows and adding to list
             if (c.moveToFirst()) {
@@ -301,73 +340,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
                     p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
                     p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
+                    p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+                    p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
                     posts.add(p);
                 } while (c.moveToNext());
             }
+            c.close();
             return posts;
         }
     }
 
-
-    //get all posts by Origin 
-    public List<Post> getAllPostsO (String org) throws ParseException {
-        List<Post> posts = new ArrayList<Post>();
-        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-        String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                + KEY_ORIGIN + " = '" + org +"'";
-     
-        Log.e(LOG, selectQuery);
-     
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-     
-        // looping through all rows and adding to list
-        if (c.moveToFirst()) {
-            do {
-                Post p = new Post();
-                p.setId(c.getString(c.getColumnIndex(KEY_ID)));
-                p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
-                p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
-                p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
-                p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
-     
-                // adding to todo list
-                posts.add(p);
-            } while (c.moveToNext());
-        }
-     
-        return posts;
-    }
-    
-    public List<Post> getAllPostsD (String des) throws ParseException {
-        List<Post> posts = new ArrayList<Post>();
-        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-        String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                + KEY_DEST + " = '" + des +"'";
-     
-        Log.e(LOG, selectQuery);
-     
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-     
-        // looping through all rows and adding to list
-        if (c.moveToFirst()) {
-            do {
-                Post p = new Post();
-                p.setId(c.getString(c.getColumnIndex(KEY_ID)));
-                p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
-                p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
-                p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
-                p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
-     
-                // adding to todo list
-                posts.add(p);
-            } while (c.moveToNext());
-        }
-     
-        return posts;
-    }
 
     //create person
     public long createPerson(Person person){
@@ -407,7 +391,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 users.add(user);
             } while (c.moveToNext());
         }
-
+        c.close();
         return users;
     }
 
@@ -429,6 +413,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             user.setName((c.getString(c.getColumnIndex(KEY_NAME))));
             user.setIntro(c.getString(c.getColumnIndex(KEY_INTRO)));
             user.setPassword(c.getString(c.getColumnIndex(KEY_PASSWORD)));
+            c.close();
+            return user;
+
+        }else{
+            c.close();
+            return null;
+        }
+    }
+
+    //Retrieve particular user
+    public Person getUserByID(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_PEOPLE + " WHERE ID = '" + id + "'";
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null){
+            c.moveToFirst();
+
+            Person user = new Person();
+            user.setId(c.getString((c.getColumnIndex(KEY_ID))));
+            user.setEmail(c.getString(c.getColumnIndex(KEY_EMAIL)));
+            user.setName((c.getString(c.getColumnIndex(KEY_NAME))));
+            user.setIntro(c.getString(c.getColumnIndex(KEY_INTRO)));
+            user.setPassword(c.getString(c.getColumnIndex(KEY_PASSWORD)));
             return user;
 
         }else{
@@ -443,11 +455,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID, comment.getId());
-        values.put(KEY_OWNERID, comment.getOwnerID());
-        values.put(KEY_POSTID, comment.getPostID());
-        values.put(KEY_CONTENT, comment.getContent());
-        values.put(KEY_DATE_OF_COMMENT, dateFormatter.format(comment.getDateOfComment()));
-        values.put(KEY_REPLYTO, comment.getReplyTo());
+//        values.put(KEY_OWNERID, comment.getOwnerID());
+//        values.put(KEY_POSTID, comment.getPostID());
+//        values.put(KEY_CONTENT, comment.getContent());
+//        values.put(KEY_DATE_OF_COMMENT, dateFormatter.format(comment.getDateOfComment()));
 
         // insert row
         long todo_id = db.insert(TABLE_COMMENT, null, values);
