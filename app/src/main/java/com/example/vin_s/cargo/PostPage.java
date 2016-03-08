@@ -49,7 +49,7 @@ public class PostPage extends AppCompatActivity{
         selectPostOrNot = (Boolean) getIntent().getSerializableExtra("selectPostOrNot");
         createPostOrNot = (Boolean) getIntent().getSerializableExtra("createPost");
 
-        if(selectPostOrNot){
+        if(selectPostOrNot!=null&&selectPostOrNot){
             postSelected = (Post) getIntent().getSerializableExtra("selectedPost");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             postID = postSelected.getId();
@@ -90,7 +90,7 @@ public class PostPage extends AppCompatActivity{
             requirements.setText("Special Requirements: " + postSelected.getRequirements());
         }
 
-        else if(createPostOrNot) {
+        else if(createPostOrNot!=null&&createPostOrNot) {
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
 //          find related display in postpage layout

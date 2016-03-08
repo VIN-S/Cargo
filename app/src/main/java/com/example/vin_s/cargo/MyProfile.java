@@ -35,7 +35,16 @@ public class MyProfile extends AppCompatActivity{
 
     public void redirectToSearch(View view){
         Intent intent = new Intent(this, Search.class);
-        intent.putExtra("USER", user);
+        startActivity(intent);
+    }
+
+    public void redirectToPost(View view){
+        Intent intent = new Intent(this, PostActivity.class);
+        startActivity(intent);
+    }
+
+    public void redirectToSettings(View view){
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

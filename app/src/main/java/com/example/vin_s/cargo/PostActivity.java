@@ -1,7 +1,9 @@
 package com.example.vin_s.cargo;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -45,6 +47,14 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         findViewsById();
         setDateTimeField();
+
+        SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userName = prefs.getString("nameKey", null);
+
+        if(userName == null){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void findViewsById() {
@@ -124,6 +134,21 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, PostPage.class);
         intent.putExtra("createPost", true);
         intent.putExtra("postCreated", postCreated);
+        startActivity(intent);
+    }
+
+    public void redirectToSearch(View view){
+        Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
+
+    public void redirectToProfile(View view){
+        Intent intent = new Intent(this, MyProfile.class);
+        startActivity(intent);
+    }
+
+    public void redirectToSettings(View view){
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 }
