@@ -22,20 +22,19 @@
     <TextView
         android:layout_width="220dp"
         android:layout_height="40dp"
-        android:paddingLeft="75dp"
+        android:gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Search"
-        android:id="@+id/search_button"
+        android:id="@+id/login_button"
         android:layout_gravity="center_horizontal"
         android:background="#dddd"
         android:textColor="#444444"
-        android:onClick="startSearch"/>
+        android:onClick="logIn"/>
     <TextView
         android:layout_width="220dp"
         android:layout_height="40dp"
-        android:paddingLeft="84dp"
+        android:gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -48,16 +47,16 @@
     <TextView
         android:layout_width="220dp"
         android:layout_height="40dp"
-        android:paddingLeft="78dp"
+        android:gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Log in"
-        android:id="@+id/login_button"
+        android:text="Search"
+        android:id="@+id/search_button"
         android:layout_gravity="center_horizontal"
         android:background="#dddd"
         android:textColor="#444444"
-        android:onClick="logIn"/>
+        android:onClick="startSearch"/>
 
 
 </LinearLayout>

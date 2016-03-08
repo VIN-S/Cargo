@@ -218,10 +218,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //origin = any
         if(org.equals("Any")&&!des.equals("Any")){
+            DateFormat dd1 = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dd2 = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                    + KEY_DEST + " = '" + des +"'" + "AND "
-                    + KEY_DATE + " >= '" + dDate +"'";
+                    + KEY_DEST + " = '" + des +"'";
 
             Log.e(LOG, selectQuery);
 
@@ -245,17 +246,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
-                    posts.add(p);
+
+                    Date tempD = p.getDate(); //dd-MM-yyyy
+                    Date inputD = dd2.parse(dDate); //dd-MM-yyyy Date
+                    String temp1 = dd1.format(tempD); //yyyy-MM-dd String
+                    String temp2 = dd1.format(inputD); //yyyy-MM-dd String
+                    Date target = dd1.parse(temp1); //yyyy-MM-dd Date
+                    Date inputDate = dd1.parse(temp2); //yyyy-MM-dd Date
+                    if(target.compareTo(inputDate)>=0)
+                        posts.add(p);
                 } while (c.moveToNext());
             }
             c.close();
             return posts;
         }//destination = any
         else if(des.equals("Any")&&!org.equals("Any")){
+            DateFormat dd1 = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dd2 = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                    + KEY_ORIGIN + " = '" + org +"'" + " AND "
-                    + KEY_DATE + " >= '" + dDate + "'";
+                    + KEY_ORIGIN + " = '" + org +"'";
             Log.e(LOG, selectQuery);
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor c = db.rawQuery(selectQuery, null);
@@ -277,16 +287,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
-                    posts.add(p);
+
+                    Date tempD = p.getDate(); //dd-MM-yyyy
+                    Date inputD = dd2.parse(dDate); //dd-MM-yyyy Date
+                    String temp1 = dd1.format(tempD); //yyyy-MM-dd String
+                    String temp2 = dd1.format(inputD); //yyyy-MM-dd String
+                    Date target = dd1.parse(temp1); //yyyy-MM-dd Date
+                    Date inputDate = dd1.parse(temp2); //yyyy-MM-dd Date
+                    if(target.compareTo(inputDate)>=0)
+                        posts.add(p);
                 } while (c.moveToNext());
             }
             c.close();
             return posts;
         }//both origin and destination are any
         else if(org.equals("Any") && des.equals("Any")){
+            DateFormat dd1 = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dd2 = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            String selectQuery = "SELECT * FROM post WHERE "
-                    + KEY_DATE + " >= '" + dDate + "'";
+            String selectQuery = "SELECT * FROM post";
             Log.e(LOG, selectQuery);
 
             SQLiteDatabase db = this.getReadableDatabase();
@@ -309,18 +328,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
-                    posts.add(p);
+
+                    Date tempD = p.getDate(); //dd-MM-yyyy
+                    Date inputD = dd2.parse(dDate); //dd-MM-yyyy Date
+                    String temp1 = dd1.format(tempD); //yyyy-MM-dd String
+                    String temp2 = dd1.format(inputD); //yyyy-MM-dd String
+                    Date target = dd1.parse(temp1); //yyyy-MM-dd Date
+                    Date inputDate = dd1.parse(temp2); //yyyy-MM-dd Date
+                    if(target.compareTo(inputDate)>=0)
+                        posts.add(p);
+
                 } while (c.moveToNext());
             }
             c.close();
             return posts;
         }//both not any
         else{
+            DateFormat dd1 = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dd2 = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
                     + KEY_ORIGIN + " = '" + org + "'" + " AND "
-                    + KEY_DEST + " = '" + des +"'" + " AND "
-                    + KEY_DATE + " >= '" + dDate + "'";
+                    + KEY_DEST + " = '" + des +"'";
 
             Log.e(LOG, selectQuery);
 
@@ -344,7 +373,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
                     // adding to todo list
-                    posts.add(p);
+
+                    Date tempD = p.getDate(); //dd-MM-yyyy
+                    Date inputD = dd2.parse(dDate); //dd-MM-yyyy Date
+                    String temp1 = dd1.format(tempD); //yyyy-MM-dd String
+                    String temp2 = dd1.format(inputD); //yyyy-MM-dd String
+                    Date target = dd1.parse(temp1); //yyyy-MM-dd Date
+                    Date inputDate = dd1.parse(temp2); //yyyy-MM-dd Date
+                    if(target.compareTo(inputDate)>=0)
+                        posts.add(p);
                 } while (c.moveToNext());
             }
             c.close();

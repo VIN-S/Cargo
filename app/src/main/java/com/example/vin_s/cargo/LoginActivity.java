@@ -4,24 +4,25 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build.VERSION;
 import android.os.Build;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -71,6 +72,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    //Log in session
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameKey";
+    public static final String Password = "passwordKey";
+    public static final String Email = "emailKey";
+    public static final String Intro = "introKey";
+    public static final String loginID = "loginIDKey";
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,7 +249,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loginSuccessful(){
         Intent intent = new Intent(this, MyProfile.class);
-        intent.putExtra("NEW_USER", user);
         startActivity(intent);
     }
 
@@ -451,6 +460,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
+
+            Person loginUser = new Person();
+            loginUser = user;
+
+            //After log in successfully, create a log in session to store login user's information
+            String nameSession  = loginUser.getName().toString();
+            String idSession  = loginUser.getId().toString();
+            String emailSession  = loginUser.getEmail().toString();
+            String passwordSession = loginUser.getPassword().toString();
+            String introSession = loginUser.getIntro().toString();
+
+            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+
+            editor.putString(Name, nameSession);
+            editor.putString(loginID, idSession);
+            editor.putString(Email, emailSession);
+            editor.putString(Intro, introSession);
+            editor.putString(Password, passwordSession);
+            editor.commit();
 
             if (success) {
                 loginSuccessful();
