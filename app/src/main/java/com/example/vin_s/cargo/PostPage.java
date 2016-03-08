@@ -1,6 +1,7 @@
 package com.example.vin_s.cargo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -247,13 +248,13 @@ public class PostPage extends AppCompatActivity {
         comment.setContent(content);
         comment.setOwnerID(userID);
         comment.setDateOfComment(new Date());
+        comment.setPostID(postID);
 
-        if(postCreated != null){
-            comment.setPostID(postCreated.getId());
-        }else{
-            comment.setPostID(postSelected.getId());
-        }
 
         dbHandler.createComment(comment);
+
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

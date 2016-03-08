@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.onCreate(dbHelper.getWritableDatabase());
+//        dbHelper.onCreate(dbHelper.getWritableDatabase());
 //        dbHelper.onUpgrade(dbHelper.getWritableDatabase(), 1, 2);
 
         loginButton = (TextView) findViewById(R.id.login_button);
