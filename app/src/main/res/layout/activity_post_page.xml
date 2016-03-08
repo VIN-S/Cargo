@@ -265,68 +265,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/commentTitleLayout">
-
-                        <TextView
-                            android:id="@+id/commentsNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:text="Comments(1): "
-                            android:textColor="#000000"
-                            android:textSize="14dp" />
-
-                        <View
-                            android:layout_width="wrap_content"
-                            android:layout_height="1dp"
-                            android:background="#aaaaaa" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:id="@+id/commentsLayout">
 
-                        <ImageView
-                            android:id="@+id/profilePic"
-                            android:layout_width="70px"
-                            android:layout_height="70px"
-                            android:layout_marginBottom="50px"
-                            android:layout_marginLeft="20px"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/result_3" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:id="@+id/commentContentLayout">
-
-                            <TextView
-                                android:id="@+id/commentsPo"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:text="Muse                       2016-03-03 12:56"
-                                android:textColor="#000000"
-                                android:textSize="14dp" />
-
-                            <TextView
-                                android:id="@+id/commentsContent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:text="Hi we have three people here! Would like to join :)"
-                                android:textColor="#000000"
-                                android:textSize="14dp" />
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 

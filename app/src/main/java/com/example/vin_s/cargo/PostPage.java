@@ -4,21 +4,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.FrameLayout.LayoutParams;
+
 import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Person;
 import com.example.vin_s.cargo.model.Post;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Created by VIN-S on 16/3/7.
  */
-public class PostPage extends AppCompatActivity{
+public class PostPage extends AppCompatActivity {
 
     private Post postCreated;
     private Post postSelected;
@@ -40,6 +43,7 @@ public class PostPage extends AppCompatActivity{
     private LinearLayout commentLayout;
     private List<Comment> comments = new ArrayList<Comment>();
     private String postID;
+    private DatabaseHelper dbHelper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class PostPage extends AppCompatActivity{
         selectPostOrNot = (Boolean) getIntent().getSerializableExtra("selectPostOrNot");
         createPostOrNot = (Boolean) getIntent().getSerializableExtra("createPost");
 
-        if(selectPostOrNot!=null&&selectPostOrNot){
+        if (selectPostOrNot != null && selectPostOrNot) {
             postSelected = (Post) getIntent().getSerializableExtra("selectedPost");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             postID = postSelected.getId();
@@ -88,9 +92,7 @@ public class PostPage extends AppCompatActivity{
             numOfSeats.setText("Number of Seats: " + postSelected.getNumberOfSeats());
             seatsLeft.setText("Seats Left: " + postSelected.getSeatsLeft());
             requirements.setText("Special Requirements: " + postSelected.getRequirements());
-        }
-
-        else if(createPostOrNot!=null&&createPostOrNot) {
+        } else if (createPostOrNot != null && createPostOrNot) {
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
 //          find related display in postpage layout
@@ -132,8 +134,16 @@ public class PostPage extends AppCompatActivity{
             requirements.setText("Special Requirements: " + postCreated.getRequirements());
         }
 
+        try {
+            comments = dbHelper.getCommentsByPostID(postID);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int commentNumber = comments.size();
 
         //comments Layout
+        //include commentTitleLayout and commentsLayout
         commentLayout = (LinearLayout) findViewById(R.id.commentLayout);
 
         LinearLayout commentTitleLayout = new LinearLayout(this);
@@ -142,20 +152,75 @@ public class PostPage extends AppCompatActivity{
 
         TextView commentsNumber = new TextView(this);
         LinearLayout.LayoutParams lpT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        lpT.setMargins(10,10,0,10);
+        lpT.setMargins(10, 10, 0, 30);
         commentsNumber.setLayoutParams(lpT);
         commentsNumber.setTextSize(14);
         commentsNumber.setTextColor(0XFF000000);
+        String temp = "Comments (" + commentNumber + ") :";
+        commentsNumber.setText((String)temp);
 
+        commentTitleLayout.addView(commentsNumber);
 
-        View view = new View(this);
-        LinearLayout.LayoutParams lpV = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,1);
-        view.setLayoutParams(lpV);
-        view.setBackgroundColor(0XFF000000);
+        commentLayout.addView(commentTitleLayout);
+
+//      layout for each comment (for loop)
+        //commentsLayout include image and commentContentLayout
+        LinearLayout commentsLayout = new LinearLayout(this);
+        commentsLayout.setOrientation(LinearLayout.HORIZONTAL);
+        commentsLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+
+        ImageView image = new ImageView(this);
+        image.setImageResource(R.drawable.result_2);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(80,80);
+        lp.setMargins(20, 10, 0, 50);
+        image.setLayoutParams(lp);
+
+        //include few textview
+        LinearLayout commentContentLayout = new LinearLayout(this);
+        commentContentLayout.setOrientation(LinearLayout.VERTICAL);
+        commentContentLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+
+        View viewContent = new View(this);
+        LinearLayout.LayoutParams lpVV = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 1);
+        viewContent.setLayoutParams(lpVV);
+
+        TextView commentUser = new TextView(this);
+        TextView commentTime = new TextView(this);
+        TextView commentContent = new TextView(this);
+        LinearLayout.LayoutParams lpTT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        lpTT.setMargins(10, 10, 0, 10);
+        LinearLayout.LayoutParams lpTTT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        lpTTT.setMargins(10, 0, 0, 10);
+        LinearLayout.LayoutParams lpUser = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        lpUser.setMargins(10, 10, 0, 0);
+        commentUser.setLayoutParams(lpUser);
+        commentTime.setLayoutParams(lpTTT);
+        commentContent.setLayoutParams(lpTT);
+        commentUser.setTextColor(0XFF000000);
+        commentUser.setText("Username");
+        commentUser.setTextSize(14);
+
+        //commentTime.setTextColor(0XFF000000);
+        commentTime.setText("comment date and time");
+        commentTime.setTextSize(12);
+
+        commentContent.setTextColor(0XFF000000);
+        commentContent.setText("comment content ballall");
+        commentContent.setTextSize(14);
+
+        commentContentLayout.addView(commentUser);
+        commentContentLayout.addView(commentTime);
+        commentContentLayout.addView(viewContent);
+        commentContentLayout.addView(commentContent);
+
+        commentsLayout.addView(image);
+        commentsLayout.addView(commentContentLayout);
+        commentLayout.addView(commentsLayout);
+//
 
     }
 
-    public Person setCreaterInfo(String personID){
+    public Person setCreaterInfo(String personID) {
         DatabaseHelper dbHandler = new DatabaseHelper(this);
 
         creator = dbHandler.getUserByID(personID);
@@ -163,7 +228,7 @@ public class PostPage extends AppCompatActivity{
         return creator;
     }
 
-    public void submitComment(View view){
+    public void submitComment(View view) {
         DatabaseHelper dbHandler = new DatabaseHelper(this);
 
         Comment comment = new Comment();

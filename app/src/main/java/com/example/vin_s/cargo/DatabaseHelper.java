@@ -417,7 +417,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //get comments by postID
-    public List<Comment> getCommentsByPostID(String postID){
+    public List<Comment> getCommentsByPostID(String postID) throws ParseException {
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         List<Comment> comments = new ArrayList<Comment>();
         String selectQuery = "SELECT  * FROM " + TABLE_COMMENT + " WHERE "
                 + KEY_POSTID + " = '" + postID + "'";
@@ -427,9 +428,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(!c.moveToFirst()){
             return comments;
         }else{
-
+            if (c.moveToFirst()) {
+                do {
+                    Comment comment = new Comment();
+                    comment.setContent(c.getString(c.getColumnIndex(KEY_CONTENT)));
+                    comment.setDateOfComment(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
+                    comment.setId(c.getString(c.getColumnIndex(KEY_ID)));
+                    comment.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
+                    comment.setPostID(c.getString(c.getColumnIndex(KEY_POSTID)));
+                    comments.add(comment);
+                    // adding to todo list
+                } while (c.moveToNext());
+            }
         }
-
+        c.close();
         return comments;
     }
 
