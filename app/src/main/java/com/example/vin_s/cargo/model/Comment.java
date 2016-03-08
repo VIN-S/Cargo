@@ -19,7 +19,7 @@ public class Comment implements Serializable{
         this.id = "com" + UUID.randomUUID().toString();
     }
 
-    public Comment(String postID, String ownerID, String content, Date dateOfComment, String replyTo) {
+    public Comment(String postID, String ownerID, String content, Date dateOfComment) {
         this.id = "com" + UUID.randomUUID().toString();
         this.postID = postID;
         this.ownerID = ownerID;
