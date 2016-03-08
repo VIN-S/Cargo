@@ -148,31 +148,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    //get one post
-    public Post getPost(String post_id) throws ParseException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-
-        String selectQuery = "SELECT  * FROM " + TABLE_POST + " WHERE "
-                + KEY_ID + " = " + post_id;
-
-        Log.e(LOG, selectQuery);
-
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c != null)
-            c.moveToFirst();
-
-        Post p = new Post();
-        p.setId(c.getString((c.getColumnIndex(KEY_ID))));
-        p.setOwnerID(c.getString(c.getColumnIndex(KEY_OWNERID)));
-        p.setOrigin((c.getString(c.getColumnIndex(KEY_ORIGIN))));
-        p.setDest(c.getString(c.getColumnIndex(KEY_DEST)));
-        p.setDate(df.parse(c.getString(c.getColumnIndex(KEY_DATE))));
-        c.close();
-        return p;
-    }
-
     //get all posts
     public List<Post> getAllPosts() throws ParseException {
         List<Post> posts = new ArrayList<Post>();
@@ -245,6 +220,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
+                    p.setCarType(c.getString(c.getColumnIndex(KEY_CARTYPE)));
+                    p.setDetails(c.getString(c.getColumnIndex(KEY_DETAILS)));
+                    p.setNumberOfSeats(c.getInt(c.getColumnIndex(KEY_NUMBEROFSEATS)));
+                    p.setRequirements(c.getString(c.getColumnIndex(KEY_REQUIREMENTS)));
+                    p.setSeatsLeft(c.getInt(c.getColumnIndex(KEY_SEATLEFT)));
                     // adding to todo list
 
                     Date tempD = p.getDate(); //dd-MM-yyyy
@@ -286,6 +266,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
+                    p.setCarType(c.getString(c.getColumnIndex(KEY_CARTYPE)));
+                    p.setDetails(c.getString(c.getColumnIndex(KEY_DETAILS)));
+                    p.setNumberOfSeats(c.getInt(c.getColumnIndex(KEY_NUMBEROFSEATS)));
+                    p.setRequirements(c.getString(c.getColumnIndex(KEY_REQUIREMENTS)));
+                    p.setSeatsLeft(c.getInt(c.getColumnIndex(KEY_SEATLEFT)));
                     // adding to todo list
 
                     Date tempD = p.getDate(); //dd-MM-yyyy
@@ -327,6 +312,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
+                    p.setCarType(c.getString(c.getColumnIndex(KEY_CARTYPE)));
+                    p.setDetails(c.getString(c.getColumnIndex(KEY_DETAILS)));
+                    p.setNumberOfSeats(c.getInt(c.getColumnIndex(KEY_NUMBEROFSEATS)));
+                    p.setRequirements(c.getString(c.getColumnIndex(KEY_REQUIREMENTS)));
+                    p.setSeatsLeft(c.getInt(c.getColumnIndex(KEY_SEATLEFT)));
                     // adding to todo list
 
                     Date tempD = p.getDate(); //dd-MM-yyyy
@@ -372,6 +362,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     p.setDuration(c.getString(c.getColumnIndex(KEY_DURATION)));
                     p.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
                     p.setSlogan(c.getString(c.getColumnIndex(KEY_SLOGAN)));
+                    p.setCarType(c.getString(c.getColumnIndex(KEY_CARTYPE)));
+                    p.setDetails(c.getString(c.getColumnIndex(KEY_DETAILS)));
+                    p.setNumberOfSeats(c.getInt(c.getColumnIndex(KEY_NUMBEROFSEATS)));
+                    p.setRequirements(c.getString(c.getColumnIndex(KEY_REQUIREMENTS)));
+                    p.setSeatsLeft(c.getInt(c.getColumnIndex(KEY_SEATLEFT)));
                     // adding to todo list
 
                     Date tempD = p.getDate(); //dd-MM-yyyy
@@ -418,8 +413,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         c.close();
-
         return p;
+    }
+
+    //get comments by postID
+    public List<Comment> getCommentsByPostID(String postID){
+        List<Comment> comments = new ArrayList<Comment>();
+        String selectQuery = "SELECT  * FROM " + TABLE_COMMENT + " WHERE "
+                + KEY_POSTID + " = '" + postID + "'";
+        Log.e(LOG, selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if(!c.moveToFirst()){
+            return comments;
+        }else{
+
+        }
+
+        return comments;
     }
 
     //create person
