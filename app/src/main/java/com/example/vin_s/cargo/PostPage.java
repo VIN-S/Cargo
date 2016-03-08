@@ -1,8 +1,11 @@
 package com.example.vin_s.cargo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.vin_s.cargo.model.Comment;
@@ -11,6 +14,7 @@ import com.example.vin_s.cargo.model.Post;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by VIN-S on 16/3/7.
@@ -34,6 +38,8 @@ public class PostPage extends AppCompatActivity{
     private Boolean createPostOrNot = false;
     private Boolean selectPostOrNot = false;
     private Person creator;
+    private String userID;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,9 @@ public class PostPage extends AppCompatActivity{
 
         selectPostOrNot = (Boolean) getIntent().getSerializableExtra("selectPostOrNot");
         createPostOrNot = (Boolean) getIntent().getSerializableExtra("createPost");
+
+        prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        userID = prefs.getString("loginIDKey", null);
 
         if(selectPostOrNot!=null&&selectPostOrNot){
             postSelected = (Post) getIntent().getSerializableExtra("selectedPost");
@@ -135,8 +144,19 @@ public class PostPage extends AppCompatActivity{
 
     public void submitComment(View view){
         DatabaseHelper dbHandler = new DatabaseHelper(this);
+        EditText commentTextView = (EditText) findViewById(R.id.newComment_edit);
+        String content = commentTextView.getText().toString();
 
         Comment comment = new Comment();
+        comment.setContent(content);
+        comment.setOwnerID(userID);
+        comment.setDateOfComment(new Date());
+
+        if(postCreated != null){
+            comment.setPostID(postCreated.getId());
+        }else{
+            comment.setPostID(postSelected.getId());
+        }
 
         dbHandler.createComment(comment);
     }

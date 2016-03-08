@@ -461,27 +461,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
 
-            Person loginUser = new Person();
-            loginUser = user;
-
-            //After log in successfully, create a log in session to store login user's information
-            String nameSession  = loginUser.getName().toString();
-            String idSession  = loginUser.getId().toString();
-            String emailSession  = loginUser.getEmail().toString();
-            String passwordSession = loginUser.getPassword().toString();
-            String introSession = loginUser.getIntro().toString();
-
-            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-
-            editor.putString(Name, nameSession);
-            editor.putString(loginID, idSession);
-            editor.putString(Email, emailSession);
-            editor.putString(Intro, introSession);
-            editor.putString(Password, passwordSession);
-            editor.commit();
-
             if (success) {
+
+                //After log in successfully, create a log in session to store login user's information
+                String nameSession  = user.getName().toString();
+                String idSession  = user.getId().toString();
+                String emailSession  = user.getEmail().toString();
+                String passwordSession = user.getPassword().toString();
+                String introSession = user.getIntro().toString();
+
+                sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                editor.putString(Name, nameSession);
+                editor.putString(loginID, idSession);
+                editor.putString(Email, emailSession);
+                editor.putString(Intro, introSession);
+                editor.putString(Password, passwordSession);
+                editor.commit();
+
                 loginSuccessful();
                 finish();
             } else {

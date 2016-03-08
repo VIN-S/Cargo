@@ -83,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Create comment statements
     private static final String CREATE_TABLE_COMMENT = "CREATE TABLE IF NOT EXISTS "
             + TABLE_COMMENT + "(" + KEY_ID + " TEXT PRIMARY KEY," + KEY_POSTID
-            + " TEXT," + KEY_OWNERID + " TEXT," + KEY_CONTENT + "  TEXT," + KEY_DATE + " DATE, FOREIGN KEY (" + KEY_POSTID + ") REFERENCES " + TABLE_POST + "(" + KEY_ID + "))";
+            + " TEXT," + KEY_OWNERID + " TEXT," + KEY_CONTENT + "  TEXT," + KEY_DATE_OF_COMMENT + " DATE, FOREIGN KEY (" + KEY_POSTID + ") REFERENCES " + TABLE_POST + "(" + KEY_ID + "))";
 
     //Drop Person Table
     private static final String DROP_TABLE_PEOPLE = "DROP TABLE " + TABLE_PEOPLE;
@@ -520,14 +520,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //create comment
     public long createComment(Comment comment){
         SQLiteDatabase db = this.getWritableDatabase();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.US);
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID, comment.getId());
-//        values.put(KEY_OWNERID, comment.getOwnerID());
-//        values.put(KEY_POSTID, comment.getPostID());
-//        values.put(KEY_CONTENT, comment.getContent());
-//        values.put(KEY_DATE_OF_COMMENT, dateFormatter.format(comment.getDateOfComment()));
+        values.put(KEY_OWNERID, comment.getOwnerID());
+        values.put(KEY_POSTID, comment.getPostID());
+        values.put(KEY_CONTENT, comment.getContent());
+        values.put(KEY_DATE_OF_COMMENT, dateFormatter.format(comment.getDateOfComment()));
 
         // insert row
         long todo_id = db.insert(TABLE_COMMENT, null, values);

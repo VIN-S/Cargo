@@ -37,7 +37,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private EditText requirements;
     private Post postCreated;
 
-
+    private String userID;
+    private String userName;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +50,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         findViewsById();
         setDateTimeField();
 
-        SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String userName = prefs.getString("nameKey", null);
+        prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        userName = prefs.getString("nameKey", null);
+        userID = prefs.getString("loginIDKey", null);
 
         if(userName == null){
             Intent intent = new Intent(this, LoginActivity.class);
@@ -111,7 +114,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        String ownerID = "1";
+
+
+        String ownerID = userID;
 
         int numOfSeats = Integer.parseInt(numberOfSeats.getText().toString());
 
