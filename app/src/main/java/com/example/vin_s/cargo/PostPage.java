@@ -3,14 +3,17 @@ package com.example.vin_s.cargo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.FrameLayout.LayoutParams;
 import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Person;
 import com.example.vin_s.cargo.model.Post;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by VIN-S on 16/3/7.
@@ -34,6 +37,9 @@ public class PostPage extends AppCompatActivity{
     private Boolean createPostOrNot = false;
     private Boolean selectPostOrNot = false;
     private Person creator;
+    private LinearLayout commentLayout;
+    private List<Comment> comments = new ArrayList<Comment>();
+    private String postID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class PostPage extends AppCompatActivity{
         if(selectPostOrNot){
             postSelected = (Post) getIntent().getSerializableExtra("selectedPost");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            postID = postSelected.getId();
 
             creator = setCreaterInfo(postSelected.getOwnerID());
 
@@ -103,6 +110,7 @@ public class PostPage extends AppCompatActivity{
 //          get post content and creater info
             postCreated = (Post) getIntent().getSerializableExtra("postCreated");
             creator = setCreaterInfo(postCreated.getOwnerID());
+            postID = postCreated.getId();
 
 //          set content for layout
             title.setText(postCreated.getTitle().toString());
@@ -123,6 +131,28 @@ public class PostPage extends AppCompatActivity{
             seatsLeft.setText("Seats Left: " + postCreated.getSeatsLeft());
             requirements.setText("Special Requirements: " + postCreated.getRequirements());
         }
+
+
+        //comments Layout
+        commentLayout = (LinearLayout) findViewById(R.id.commentLayout);
+
+        LinearLayout commentTitleLayout = new LinearLayout(this);
+        commentTitleLayout.setOrientation(LinearLayout.VERTICAL);
+        commentTitleLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+
+        TextView commentsNumber = new TextView(this);
+        LinearLayout.LayoutParams lpT = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        lpT.setMargins(10,10,0,10);
+        commentsNumber.setLayoutParams(lpT);
+        commentsNumber.setTextSize(14);
+        commentsNumber.setTextColor(0XFF000000);
+
+
+        View view = new View(this);
+        LinearLayout.LayoutParams lpV = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,1);
+        view.setLayoutParams(lpV);
+        view.setBackgroundColor(0XFF000000);
+
     }
 
     public Person setCreaterInfo(String personID){
