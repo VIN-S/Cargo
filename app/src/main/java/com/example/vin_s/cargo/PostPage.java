@@ -63,7 +63,7 @@ public class PostPage extends AppCompatActivity {
 
         prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         userID = prefs.getString("loginIDKey", null);
-      
+
         if(selectPostOrNot!=null&&selectPostOrNot){
             postSelected = (Post) getIntent().getSerializableExtra("selectedPost");
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
