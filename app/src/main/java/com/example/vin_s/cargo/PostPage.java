@@ -59,6 +59,7 @@ public class PostPage extends AppCompatActivity {
     private List<Comment> comments = new ArrayList<Comment>();
     private String postID;
     private DatabaseHelper dbHelper = new DatabaseHelper(this);
+    private int num=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,9 +249,9 @@ public class PostPage extends AppCompatActivity {
             view.setLayoutParams(lpV);
             view.setBackgroundColor(0XFF000000);
 
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+            DateFormat dff = new SimpleDateFormat("dd-MM-yyyy hh:mm");
             Date commentDate = cc.getDateOfComment();
-            String dateC = df.format(commentDate);
+            String dateC = dff.format(commentDate);
             //06-03-2016 02:50
             //commentTime.setTextColor(0XFF000000);
             commentTime.setText(dateC);

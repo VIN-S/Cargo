@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Post;
+
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
@@ -47,9 +48,10 @@ public class ResultList extends AppCompatActivity {
     private Spinner spinner;
     private List<Comment> comments = new ArrayList<Comment>();
     private int commentN = 0;
-    private int commentLast =0;
+    private int commentLast = 0;
     private int commentB = 0;
     private int commentA = 0;
+    private int num =0;
 
 
     @Override
@@ -69,7 +71,7 @@ public class ResultList extends AppCompatActivity {
                 R.array.sortedBy, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        if(item.equals("Date"))
+        if (item.equals("Date"))
             spinner.setSelection(0);
         else
             spinner.setSelection(1);
@@ -92,31 +94,31 @@ public class ResultList extends AppCompatActivity {
             loop.addView(two);
         } else {
             //rearrange the result list according to the sortedBy item
-            if(item.equals("Date")){
-                for(int i =0;i<posts.size();i++){
+            if (item.equals("Date")) {
+                for (int i = 0; i < posts.size(); i++) {
                     int newSize = newPosts.size();
                     Post p = (Post) posts.get(i);
-                    if(newPosts.isEmpty())
+                    if (newPosts.isEmpty())
                         newPosts.add(p);
-                    else if (newPosts.size()==1){
-                        if(p.getDate().compareTo(newPosts.get(0).getDate())>=0)
+                    else if (newPosts.size() == 1) {
+                        if (p.getDate().compareTo(newPosts.get(0).getDate()) >= 0)
                             newPosts.add(p);//append at last --[0,1]
                         else
-                            newPosts.add(0,p);//add at index 0 -- [1,0]
-                    }else if(p.getDate().compareTo(newPosts.get(newSize-1).getDate())>=0){
+                            newPosts.add(0, p);//add at index 0 -- [1,0]
+                    } else if (p.getDate().compareTo(newPosts.get(newSize - 1).getDate()) >= 0) {
                         newPosts.add(p);
-                    }else{
-                        for(int m=0;m<newPosts.size()-1;m++){
-                            if((p.getDate().compareTo(newPosts.get(m).getDate())>=0) &&
-                            (p.getDate().compareTo(newPosts.get(m+1).getDate())<0)){
-                                int position = m+1;
-                                newPosts.add(position,p);
+                    } else {
+                        for (int m = 0; m < newPosts.size() - 1; m++) {
+                            if ((p.getDate().compareTo(newPosts.get(m).getDate()) >= 0) &&
+                                    (p.getDate().compareTo(newPosts.get(m + 1).getDate()) < 0)) {
+                                int position = m + 1;
+                                newPosts.add(position, p);
                             }
                         }
                     }
                 }
-            }else{
-                for(int i=0;i<posts.size();i++){
+            } else {
+                for (int i = 0; i < posts.size(); i++) {
                     Post p = posts.get(i);
                     try {
                         comments = dbHelper.getCommentsByPostID(p.getId());
@@ -125,7 +127,7 @@ public class ResultList extends AppCompatActivity {
                     }
 
                     int commentP = comments.size();
-                    if(!newPosts.isEmpty()) {
+                    if (!newPosts.isEmpty()) {
                         try {
                             commentLast = dbHelper.getCommentsByPostID(newPosts.get(newPosts.size() - 1).getId()).size();
                         } catch (ParseException e) {
@@ -133,47 +135,48 @@ public class ResultList extends AppCompatActivity {
                         }
                     }
 
-                    if(newPosts.isEmpty())
+                    if (newPosts.isEmpty())
                         newPosts.add(p);
-                    else if(newPosts.size()==1){
+                    else if (newPosts.size() == 1) {
                         try {
                             commentN = dbHelper.getCommentsByPostID(newPosts.get(0).getId()).size();
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        if(commentP>=commentN)
+                        if (commentP >= commentN)
                             newPosts.add(p);
                         else
-                            newPosts.add(0,p);
-                    }else if(commentLast<=commentP){
+                            newPosts.add(0, p);
+                    } else if (commentLast > commentP) {
                         newPosts.add(p);
-                    }else{
-                        for(int m=0;m<newPosts.size()-1;m++){
+                    } else {
+                        for (int m = 0; m < newPosts.size() - 1; m++) {
                             try {
                                 commentB = dbHelper.getCommentsByPostID(newPosts.get(m).getId()).size();
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                             try {
-                                commentA = dbHelper.getCommentsByPostID(newPosts.get(m+1).getId()).size();
+                                commentA = dbHelper.getCommentsByPostID(newPosts.get(m + 1).getId()).size();
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if(commentB<=commentP && commentA>commentP)
-                                newPosts.add(m+1,p);
+                            if (commentB > commentP && commentA <= commentP)
+                                newPosts.add(m + 1, p);
                         }
                     }
                 }
             }
 
             //using rearranged posts list
-            for (int l = 0; l < num; l++) {
+            for (int l = 0; l < newPosts.size(); l++) {
                 String postID = (String) newPosts.get(l).getId();
-                try {
+
+                /*try {
                     selectedPost = dbHelper.getPostByID(postID);
                 } catch (ParseException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 String org = (String) newPosts.get(l).getOrigin();
                 String des = (String) newPosts.get(l).getDest();
@@ -184,12 +187,15 @@ public class ResultList extends AppCompatActivity {
                 //child include child1, view
                 LinearLayout child = new LinearLayout(this);
                 child.setOrientation(LinearLayout.VERTICAL);
+                child.setId(l);
                 child.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 //set onclick action
-                OnClickListener button_click = new OnClickListener() {
+
+
+                final MyLovelyOnClickListener button_click = new MyLovelyOnClickListener(newPosts.get(l)) {
                     @Override
                     public void onClick(View v) {
-                        showPostPage(v);
+                        showPostPage(v, myLovelyVariable);
                     }
                 };
                 child.setOnClickListener(button_click);
@@ -262,7 +268,7 @@ public class ResultList extends AppCompatActivity {
                                 sortedItem,
                         Toast.LENGTH_SHORT).show();
                         */
-                if(!currentItem.equals(sortedItem)){
+                if (!currentItem.equals(sortedItem)) {
                     Intent intent = getIntent();
                     intent.putExtra("item", sortedItem);
                     finish();
@@ -279,45 +285,61 @@ public class ResultList extends AppCompatActivity {
         SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String userName = prefs.getString("nameKey", null);
 
-        if(userName == null){
-            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.resultlist_tab_bar);
+        if (userName == null) {
+            LinearLayout tabBarLayout = (LinearLayout) this.findViewById(R.id.resultlist_tab_bar);
             tabBarLayout.setVisibility(LinearLayout.GONE);
-            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.resultlist_scrollView);
+            ScrollView searchScroll = (ScrollView) this.findViewById(R.id.resultlist_scrollView);
             searchScroll.setMinimumHeight(500);
         }
+    }
+
+
+    public class MyLovelyOnClickListener implements OnClickListener {
+
+        Post myLovelyVariable;
+
+        public MyLovelyOnClickListener(Post myLovelyVariable) {
+            this.myLovelyVariable = myLovelyVariable;
+        }
+
+        @Override
+        public void onClick(View v) {
+            //read your lovely variable
+        }
+
     }
 
     /**
      * Called when the user clicks the block
      */
-    public void showPostPage(View view) {
+    public void showPostPage(View view, Post num) {
         Intent intent = new Intent(this, PostPage.class);
         intent.putExtra("selectPostOrNot", true);
-        intent.putExtra("selectedPost", selectedPost);
+        intent.putExtra("selectedPost", num);
         startActivity(intent);
     }
 
-    public void redirectToProfile(View view){
+    public void redirectToProfile(View view) {
         Intent intent = new Intent(this, MyProfile.class);
         startActivity(intent);
     }
 
-    public void redirectToSearch(View view){
+    public void redirectToSearch(View view) {
         Intent intent = new Intent(this, Search.class);
         startActivity(intent);
     }
 
-    public void redirectToCreatePost(View view){
+    public void redirectToCreatePost(View view) {
         Intent intent = new Intent(this, PostActivity.class);
         startActivity(intent);
     }
 
-    public void redirectToHome(View view){
+    public void redirectToHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void logout(View view){
+    public void logout(View view) {
         showDialog(ResultList.this, "Logout Warning", "Are you going to log out?");
     }
 
@@ -332,7 +354,7 @@ public class ResultList extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("MyPrefs", 0);
                 preferences.edit().clear().commit();
 
-                Intent in=new Intent(activity, MainActivity.class);
+                Intent in = new Intent(activity, MainActivity.class);
                 activity.startActivity(in);
             }
         });
