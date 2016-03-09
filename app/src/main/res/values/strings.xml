@@ -16,6 +16,10 @@
         <item>Stockholm</item>
         <item>Iceland</item>
     </string-array>
+    <string-array name="sortedBy">
+        <item>Date</item>
+        <item>Popularity</item>
+    </string-array>
     <string name="origin_default">Any</string>
     <string name="destination">Any</string>
     <string name="title_activity_login">Sign in</string>

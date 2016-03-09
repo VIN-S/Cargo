@@ -4,11 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.FrameLayout.LayoutParams;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView;
+import android.widget.Toast;
+
+import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Post;
 
 import org.w3c.dom.Text;
@@ -21,8 +28,17 @@ public class ResultList extends AppCompatActivity {
 
     private LinearLayout loop;
     private List<Post> posts = new ArrayList<Post>();
+    private List<Post> newPosts = new ArrayList<Post>();
     private Post selectedPost;
     private DatabaseHelper dbHelper = new DatabaseHelper(this);
+    private String sortedItem;
+    private Spinner spinner;
+    private List<Comment> comments = new ArrayList<Comment>();
+    private int commentN = 0;
+    private int commentLast =0;
+    private int commentB = 0;
+    private int commentA = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +49,21 @@ public class ResultList extends AppCompatActivity {
         loop.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
         posts = (List<Post>) getIntent().getSerializableExtra("resultList");
+        String item = (String) getIntent().getSerializableExtra("item");
+
+        //sortedBy dropdown list
+        spinner = (Spinner) findViewById(R.id.sortedBy);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.sortedBy, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        if(item.equals("Date"))
+            spinner.setSelection(0);
+        else
+            spinner.setSelection(1);
         int num = posts.size();
-        if(posts.isEmpty()) {
+
+        if (posts.isEmpty()) {
             LinearLayout.LayoutParams lpT = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             lpT.setMargins(0, 0, 0, 20);
             TextView one = new TextView(this);
@@ -49,21 +78,95 @@ public class ResultList extends AppCompatActivity {
             two.setText("Please search again!");
             loop.addView(one);
             loop.addView(two);
-        }
-        else {
-            for(int l=0; l<num; l++)
-            {
-                String postID = (String) posts.get(l).getId();
+        } else {
+            //rearrange the result list according to the sortedBy item
+            if(item.equals("Date")){
+                for(int i =0;i<posts.size();i++){
+                    int newSize = newPosts.size();
+                    Post p = (Post) posts.get(i);
+                    if(newPosts.isEmpty())
+                        newPosts.add(p);
+                    else if (newPosts.size()==1){
+                        if(p.getDate().compareTo(newPosts.get(0).getDate())>=0)
+                            newPosts.add(p);//append at last --[0,1]
+                        else
+                            newPosts.add(0,p);//add at index 0 -- [1,0]
+                    }else if(p.getDate().compareTo(newPosts.get(newSize-1).getDate())>=0){
+                        newPosts.add(p);
+                    }else{
+                        for(int m=0;m<newPosts.size()-1;m++){
+                            if((p.getDate().compareTo(newPosts.get(m).getDate())>=0) &&
+                            (p.getDate().compareTo(newPosts.get(m+1).getDate())<0)){
+                                int position = m+1;
+                                newPosts.add(position,p);
+                            }
+                        }
+                    }
+                }
+            }else{
+                for(int i=0;i<posts.size();i++){
+                    Post p = posts.get(i);
+                    try {
+                        comments = dbHelper.getCommentsByPostID(p.getId());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    int commentP = comments.size();
+                    if(!newPosts.isEmpty()) {
+                        try {
+                            commentLast = dbHelper.getCommentsByPostID(newPosts.get(newPosts.size() - 1).getId()).size();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if(newPosts.isEmpty())
+                        newPosts.add(p);
+                    else if(newPosts.size()==1){
+                        try {
+                            commentN = dbHelper.getCommentsByPostID(newPosts.get(0).getId()).size();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if(commentP>=commentN)
+                            newPosts.add(p);
+                        else
+                            newPosts.add(0,p);
+                    }else if(commentLast<=commentP){
+                        newPosts.add(p);
+                    }else{
+                        for(int m=0;m<newPosts.size()-1;m++){
+                            try {
+                                commentB = dbHelper.getCommentsByPostID(newPosts.get(m).getId()).size();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                commentA = dbHelper.getCommentsByPostID(newPosts.get(m+1).getId()).size();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            if(commentB<=commentP && commentA>commentP)
+                                newPosts.add(m+1,p);
+                        }
+                    }
+                }
+            }
+
+            //using rearranged posts list
+            for (int l = 0; l < num; l++) {
+                String postID = (String) newPosts.get(l).getId();
                 try {
                     selectedPost = dbHelper.getPostByID(postID);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-                String org = (String)posts.get(l).getOrigin();
-                String des = (String)posts.get(l).getDest();
-                String duration = (String) posts.get(l).getDuration();
-                String pTitle = (String)posts.get(l).getTitle();
+                String org = (String) newPosts.get(l).getOrigin();
+                String des = (String) newPosts.get(l).getDest();
+                String duration = (String) newPosts.get(l).getDuration();
+                String pTitle = (String) newPosts.get(l).getTitle();
                 String od = org + " - " + des + ", " + duration;
 
                 //child include child1, view
@@ -111,12 +214,12 @@ public class ResultList extends AppCompatActivity {
                 text1.setTextColor(0XFF000000);
                 text2.setText((String) pTitle);
                 text2.setTextSize(16);
-                text3.setText((String) posts.get(l).getSlogan());
+                text3.setText((String) newPosts.get(l).getSlogan());
                 text3.setTextSize(13);
 
                 View view = new View(this);
-                LinearLayout.LayoutParams lpV = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,2);
-                lpV.setMargins(0,20,0, 20);
+                LinearLayout.LayoutParams lpV = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 2);
+                lpV.setMargins(0, 20, 0, 20);
                 view.setLayoutParams(lpV);
                 view.setBackgroundColor(0XFF000000);
 
@@ -133,13 +236,43 @@ public class ResultList extends AppCompatActivity {
                 loop.addView(child);
             }
         }
+
+        final String currentItem = String.valueOf(spinner.getSelectedItem());
+
+        //sotedby refresh
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                sortedItem = String.valueOf(spinner.getSelectedItem());
+                // your code here
+                /*Toast.makeText(ResultList.this,
+                        "SortedItem selected : " +
+                                sortedItem,
+                        Toast.LENGTH_SHORT).show();
+                        */
+                if(!currentItem.equals(sortedItem)){
+                    Intent intent = getIntent();
+                    intent.putExtra("item", sortedItem);
+                    finish();
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
     }
 
-    /** Called when the user clicks the block */
+    /**
+     * Called when the user clicks the block
+     */
     public void showPostPage(View view) {
         Intent intent = new Intent(this, PostPage.class);
         intent.putExtra("selectPostOrNot", true);
-        intent.putExtra("selectedPost" , selectedPost);
+        intent.putExtra("selectedPost", selectedPost);
         startActivity(intent);
     }
 }
