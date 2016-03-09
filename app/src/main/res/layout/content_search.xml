@@ -188,10 +188,10 @@
         <Button
             android:layout_width="72dp"
             android:layout_height="50dp"
-            android:id="@+id/search_setting_button"
-            android:background="@drawable/settings_icon"
+            android:id="@+id/search_logout_button"
+            android:background="@drawable/logout_icon"
             android:layout_alignParentBottom="true"
-            android:onClick="redirectToSettings"/>
+            android:onClick="logout"/>
 
     </LinearLayout>
 </LinearLayout>

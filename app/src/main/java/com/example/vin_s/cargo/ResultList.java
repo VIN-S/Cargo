@@ -1,6 +1,9 @@
 package com.example.vin_s.cargo;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -176,4 +179,26 @@ public class ResultList extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void logout(View view){
+        showDialog(ResultList.this, "Logout Warning", "Are you going to log out?");
+    }
+
+    public void showDialog(final Activity activity, String title, CharSequence message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        if (title != null) builder.setTitle(title);
+
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                SharedPreferences preferences = getSharedPreferences("MyPrefs", 0);
+                preferences.edit().clear().commit();
+
+                Intent in=new Intent(activity, MainActivity.class);
+                activity.startActivity(in);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
 }
