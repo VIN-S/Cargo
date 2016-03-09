@@ -78,8 +78,9 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:id="@+id/profile_settings"
+        android:text="Log out"
+        android:onClick="logout"
+        android:id="@+id/profile_logout"
         android:layout_below="@+id/my_trips"
         android:layout_centerHorizontal="true" />
 
