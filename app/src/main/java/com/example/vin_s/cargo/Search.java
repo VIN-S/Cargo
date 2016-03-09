@@ -160,6 +160,11 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         startActivity(intent);
     }
 
+    public void redirectToSearch(View view){
+        Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         if (v == fromDateEtxt) {

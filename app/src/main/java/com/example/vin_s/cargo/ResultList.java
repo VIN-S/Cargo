@@ -161,6 +161,11 @@ public class ResultList extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void redirectToSearch(View view){
+        Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
+
     public void redirectToCreatePost(View view){
         Intent intent = new Intent(this, PostActivity.class);
         startActivity(intent);

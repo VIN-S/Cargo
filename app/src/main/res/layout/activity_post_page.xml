@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".PostPage">
 
@@ -26,16 +24,17 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="380dp"
         android:clickable="true"
-        android:contextClickable="true">
+        android:contextClickable="true"
+        android:id="@+id/postpage_scrollView">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/relativelayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -43,7 +42,7 @@
                 <ImageView
                     android:id="@+id/myImageView"
                     android:layout_width="wrap_content"
-                    android:layout_height="500px"
+                    android:layout_height="300px"
                     android:background="@drawable/postpage" />
 
                 <TextView
@@ -55,13 +54,12 @@
                     android:layout_margin="20dp"
                     android:gravity="left"
                     android:textColor="#fbfbfb" />
-            </RelativeLayout>
+            </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30px"
                 android:orientation="vertical">
 
                 <View
@@ -267,8 +265,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:id="@+id/commentsLayout">
-
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -276,4 +272,55 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/postpage_tab_bar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:gravity="bottom">
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/postpage_home_button"
+            android:background="@drawable/main_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToHome"/>
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/postpage_search_button"
+            android:background="@drawable/search_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToSearch"/>
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/postpage_createpost_button"
+            android:background="@drawable/createpost_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToCreatePost"/>
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/postpage_profile_button"
+            android:background="@drawable/profile_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToProfile"/>
+
+
+        <Button
+            android:layout_width="72dp"
+            android:layout_height="50dp"
+            android:id="@+id/postpage_setting_button"
+            android:background="@drawable/settings_icon"
+            android:layout_alignParentBottom="true"
+            android:onClick="redirectToSettings"/>
+
+    </LinearLayout>
 </LinearLayout>

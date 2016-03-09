@@ -498,7 +498,8 @@
                 android:layout_height="50dp"
                 android:id="@+id/post_profile_button"
                 android:background="@drawable/profile_icon"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentBottom="true"
+                android:onClick="redirectToProfile"/>
 
 
             <Button
