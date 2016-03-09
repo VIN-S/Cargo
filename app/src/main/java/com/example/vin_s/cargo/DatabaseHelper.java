@@ -131,16 +131,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_DETAILS, post.getDetails());
         values.put(KEY_DURATION, post.getDuration());
         values.put(KEY_REQUIREMENTS, post.getRequirements());
-
-        //for testing use only
-        SQLiteDatabase dbtest = this.getWritableDatabase();
-        ContentValues test = new ContentValues();
-        test.put(KEY_ID, "1");
-        test.put(KEY_INTRO, "我傻逼我自豪");
-        test.put(KEY_NAME, "傻逼孙狗");
-        test.put(KEY_EMAIL, "sb123");
-        test.put(KEY_PASSWORD, "sb123");
-        dbtest.replace(TABLE_PEOPLE, null, test);
+//
+//        //for testing use only
+//        SQLiteDatabase dbtest = this.getWritableDatabase();
+//        ContentValues test = new ContentValues();
+//        test.put(KEY_ID, "1");
+//        test.put(KEY_INTRO, "我傻逼我自豪");
+//        test.put(KEY_NAME, "傻逼孙狗");
+//        test.put(KEY_EMAIL, "sb123");
+//        test.put(KEY_PASSWORD, "sb123");
+//        dbtest.replace(TABLE_PEOPLE, null, test);
 
         // insert row
         long todo_id = db.insert(TABLE_POST, null, values);
