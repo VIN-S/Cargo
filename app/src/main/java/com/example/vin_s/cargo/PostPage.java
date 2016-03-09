@@ -69,9 +69,9 @@ public class PostPage extends AppCompatActivity {
         String userName = prefs.getString("nameKey", null);
 
         if(userName == null){
-            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.search_tab_bar);
+            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.postpage_tab_bar);
             tabBarLayout.setVisibility(LinearLayout.GONE);
-            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.search_scrollView);
+            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.postpage_scrollView);
             searchScroll.setMinimumHeight(500);
         }
 
@@ -307,11 +307,6 @@ public class PostPage extends AppCompatActivity {
 
     public void redirectToCreatePost(View view){
         Intent intent = new Intent(this, PostActivity.class);
-        startActivity(intent);
-    }
-
-    public void redirectToSettings(View view){
-        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 

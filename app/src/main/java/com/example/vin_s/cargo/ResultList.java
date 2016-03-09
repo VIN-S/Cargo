@@ -143,7 +143,7 @@ public class ResultList extends AppCompatActivity {
         if(userName == null){
             LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.resultlist_tab_bar);
             tabBarLayout.setVisibility(LinearLayout.GONE);
-            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.search_scrollView);
+            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.resultlist_scrollView);
             searchScroll.setMinimumHeight(500);
         }
     }
@@ -168,11 +168,6 @@ public class ResultList extends AppCompatActivity {
 
     public void redirectToCreatePost(View view){
         Intent intent = new Intent(this, PostActivity.class);
-        startActivity(intent);
-    }
-
-    public void redirectToSettings(View view){
-        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
     }
 
