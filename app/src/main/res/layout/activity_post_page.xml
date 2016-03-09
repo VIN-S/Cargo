@@ -100,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25px"
                             android:layout_marginTop="10px"
-                            android:text="Average Rate: 9.8"
+                            android:id="@+id/post_page_contact"
                             android:textColor="#000000"
                             android:textSize="12dp" />
 

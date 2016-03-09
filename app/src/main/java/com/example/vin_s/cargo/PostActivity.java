@@ -117,24 +117,40 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
+        int postSeats = -1;
+        int postNumOfSeats = -1;
+        Boolean seatInfoEmpty = false;
 
+        try{
+            postSeats = Integer.parseInt(seatsLeft.getText().toString());
+            postNumOfSeats = Integer.parseInt(numberOfSeats.getText().toString());
+        }catch(Exception e){
+            seatInfoEmpty = true;
+        }
 
-        String ownerID = userID;
+        String postTitle = title.getText().toString();
+        String postCar = car.getText().toString();
+        String postDuration = duration.getText().toString();
 
-        int numOfSeats = Integer.parseInt(numberOfSeats.getText().toString());
+        if(postTitle.equals(null) || postTitle.equals("") || postCar.equals(null) || postCar.equals("") || postDuration.equals(null) || postDuration.equals("") || seatInfoEmpty){
+            showInsufficientInfoDialog(PostActivity.this, "Information is incomplete", "Please complete the field with *");
+        }else {
+            String ownerID = userID;
 
-        int seatLeft = Integer.parseInt(seatsLeft.getText().toString());
+            int numOfSeats = Integer.parseInt(numberOfSeats.getText().toString());
 
-        Post post =
-                new Post(ownerID,title.getText().toString(),slogan.getText().toString(),car.getText().toString(),seatLeft,numOfSeats, details.getText().toString(),duration.getText().toString(),requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(),departureDate);
+            int seatLeft = Integer.parseInt(seatsLeft.getText().toString());
 
-        postCreated =
-                new Post(ownerID,title.getText().toString(),slogan.getText().toString(),car.getText().toString(),seatLeft,numOfSeats, details.getText().toString(),duration.getText().toString(),requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(),departureDate);
+            Post post =
+                    new Post(ownerID, title.getText().toString(), slogan.getText().toString(), car.getText().toString(), seatLeft, numOfSeats, details.getText().toString(), duration.getText().toString(), requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(), departureDate);
 
-        dbHandler.createPost(post);
+            postCreated =
+                    new Post(ownerID, title.getText().toString(), slogan.getText().toString(), car.getText().toString(), seatLeft, numOfSeats, details.getText().toString(), duration.getText().toString(), requirements.getText().toString(), origin.getSelectedItem().toString(), destination.getSelectedItem().toString(), departureDate);
 
-        gotoPostPage(view);
+            dbHandler.createPost(post);
 
+            gotoPostPage(view);
+        }
     }
 
     /** Called after the post is written into the database */
@@ -186,6 +202,16 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    public void showInsufficientInfoDialog(final Activity activity, String title, CharSequence message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        if (title != null) builder.setTitle(title);
+
+        builder.setMessage(message);
+        builder.setNegativeButton("Ok", null);
         builder.show();
     }
 }

@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Title:  "
+                    android:text="Title* :  "
                     android:textColor="#000000"
                     android:id="@+id/postTitle" />
 
@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Car:  "
+                    android:text="Car Type* :  "
                     android:textColor="#000000"
                     android:id="@+id/postCar" />
 
@@ -161,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Origin:  "
+                    android:text="Origin* :  "
                     android:textColor="#000000"
                     android:id="@+id/postOrigin" />
 
@@ -200,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Destination:  "
+                    android:text="Destination* :  "
                     android:textColor="#000000"
                     android:id="@+id/postDestination" />
 
@@ -239,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Departure Date:  "
+                    android:text="Departure Date* :  "
                     android:textColor="#000000"
                     android:id="@+id/postDepartureDate" />
 
@@ -272,7 +272,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Number of Seats:  "
+                    android:text="Number of Seats* :  "
                     android:textColor="#000000"
                     android:id="@+id/postNumberOfSeats" />
 
@@ -305,7 +305,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Seats Left:  "
+                    android:text="Seats Left* :  "
                     android:textColor="#000000"
                     android:id="@+id/postSeatsLeft" />
 
@@ -381,7 +381,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Duration:  "
+                    android:text="Duration* :  "
                     android:textColor="#000000"
                     android:id="@+id/postDuration" />
 

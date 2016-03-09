@@ -11,11 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
 
 import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Person;
@@ -24,7 +24,9 @@ import com.example.vin_s.cargo.model.Post;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -37,6 +39,7 @@ public class PostPage extends AppCompatActivity {
     private TextView title;
     private TextView slogan;
     private TextView creatorName;
+    private TextView creatorContact;
     private TextView details;
     private TextView car;
     private TextView origin;
@@ -89,6 +92,7 @@ public class PostPage extends AppCompatActivity {
             title = (TextView) findViewById(R.id.post_page_title);
             slogan = (TextView) findViewById(R.id.post_page_slogan);
             creatorName = (TextView) findViewById(R.id.post_page_creatorName);
+            creatorContact = (TextView) findViewById((R.id.post_page_contact));
             details = (TextView) findViewById(R.id.post_page_detail);
             car = (TextView) findViewById(R.id.post_page_car);
             origin = (TextView) findViewById(R.id.post_page_origin);
@@ -103,6 +107,7 @@ public class PostPage extends AppCompatActivity {
             title.setText(postSelected.getTitle().toString());
             slogan.setText(postSelected.getSlogan().toString());
             creatorName.setText(creator.getName());
+            creatorContact.setText("Contact: " + creator.getEmail());
             details.setText(postSelected.getDetails().toString());
             car.setText("Car: " + postSelected.getCarType().toString());
             origin.setText("Origin: " + postSelected.getOrigin().toString());
@@ -124,6 +129,7 @@ public class PostPage extends AppCompatActivity {
             title = (TextView) findViewById(R.id.post_page_title);
             slogan = (TextView) findViewById(R.id.post_page_slogan);
             creatorName = (TextView) findViewById(R.id.post_page_creatorName);
+            creatorContact = (TextView) findViewById((R.id.post_page_contact));
             details = (TextView) findViewById(R.id.post_page_detail);
             car = (TextView) findViewById(R.id.post_page_car);
             origin = (TextView) findViewById(R.id.post_page_origin);
@@ -143,6 +149,7 @@ public class PostPage extends AppCompatActivity {
             title.setText(postCreated.getTitle().toString());
             slogan.setText(postCreated.getSlogan().toString());
             creatorName.setText(creator.getName());
+            creatorContact.setText("Contact: " + creator.getEmail());
             details.setText(postCreated.getDetails().toString());
             car.setText("Car: " + postCreated.getCarType().toString());
             origin.setText("Origin: " + postCreated.getOrigin().toString());
