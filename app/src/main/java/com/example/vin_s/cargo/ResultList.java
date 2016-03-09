@@ -143,11 +143,11 @@ public class ResultList extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        if (commentP >= commentN)
+                        if (commentP <= commentN)
                             newPosts.add(p);
                         else
                             newPosts.add(0, p);
-                    } else if (commentLast > commentP) {
+                    } else if (commentLast >= commentP) {
                         newPosts.add(p);
                     } else {
                         for (int m = 0; m < newPosts.size() - 1; m++) {
@@ -161,7 +161,7 @@ public class ResultList extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if (commentB > commentP && commentA <= commentP)
+                            if (commentB >= commentP && commentA <= commentP)
                                 newPosts.add(m + 1, p);
                         }
                     }
