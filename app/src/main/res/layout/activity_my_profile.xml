@@ -78,8 +78,9 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:id="@+id/profile_settings"
+        android:text="Log out"
+        android:onClick="logout"
+        android:id="@+id/profile_logout"
         android:layout_below="@+id/my_trips"
         android:layout_centerHorizontal="true" />
 
@@ -126,10 +127,10 @@
         <Button
             android:layout_width="72dp"
             android:layout_height="50dp"
-            android:id="@+id/profile_setting_button"
-            android:background="@drawable/settings_icon"
+            android:id="@+id/profile_logout_button"
+            android:background="@drawable/logout_icon"
             android:layout_alignParentBottom="true"
-            android:onClick="redirectToSettings"/>
+            android:onClick="logout"/>
 
     </LinearLayout>
 

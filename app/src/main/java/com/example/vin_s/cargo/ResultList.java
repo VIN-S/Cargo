@@ -1,6 +1,11 @@
 package com.example.vin_s.cargo;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,11 +22,18 @@ import android.widget.Toast;
 
 import com.example.vin_s.cargo.model.Comment;
 import com.example.vin_s.cargo.model.Post;
+import android.view.View.OnClickListener;
+import android.widget.FrameLayout.LayoutParams;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.vin_s.cargo.model.Post;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ResultList extends AppCompatActivity {
@@ -264,6 +276,15 @@ public class ResultList extends AppCompatActivity {
                 // your code here
             }
         });
+        SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userName = prefs.getString("nameKey", null);
+
+        if(userName == null){
+            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.resultlist_tab_bar);
+            tabBarLayout.setVisibility(LinearLayout.GONE);
+            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.resultlist_scrollView);
+            searchScroll.setMinimumHeight(500);
+        }
     }
 
     /**
@@ -274,5 +295,48 @@ public class ResultList extends AppCompatActivity {
         intent.putExtra("selectPostOrNot", true);
         intent.putExtra("selectedPost", selectedPost);
         startActivity(intent);
+    }
+
+    public void redirectToProfile(View view){
+        Intent intent = new Intent(this, MyProfile.class);
+        startActivity(intent);
+    }
+
+    public void redirectToSearch(View view){
+        Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
+
+    public void redirectToCreatePost(View view){
+        Intent intent = new Intent(this, PostActivity.class);
+        startActivity(intent);
+    }
+
+    public void redirectToHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout(View view){
+        showDialog(ResultList.this, "Logout Warning", "Are you going to log out?");
+    }
+
+    public void showDialog(final Activity activity, String title, CharSequence message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        if (title != null) builder.setTitle(title);
+
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                SharedPreferences preferences = getSharedPreferences("MyPrefs", 0);
+                preferences.edit().clear().commit();
+
+                Intent in=new Intent(activity, MainActivity.class);
+                activity.startActivity(in);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 }

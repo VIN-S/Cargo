@@ -1,6 +1,9 @@
 package com.example.vin_s.cargo;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.FrameLayout.LayoutParams;
 
@@ -63,6 +67,16 @@ public class PostPage extends AppCompatActivity {
 
         prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         userID = prefs.getString("loginIDKey", null);
+
+        SharedPreferences prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userName = prefs.getString("nameKey", null);
+
+        if(userName == null){
+            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.postpage_tab_bar);
+            tabBarLayout.setVisibility(LinearLayout.GONE);
+            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.postpage_scrollView);
+            searchScroll.setMinimumHeight(500);
+        }
 
         if(selectPostOrNot!=null&&selectPostOrNot){
             postSelected = (Post) getIntent().getSerializableExtra("selectedPost");
@@ -250,6 +264,16 @@ public class PostPage extends AppCompatActivity {
             commentLayout.addView(view);
 //
         }
+
+        SharedPreferences prefsCheckLogin = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String loginUserName = prefsCheckLogin.getString("nameKey", null);
+
+        if(loginUserName == null){
+            LinearLayout tabBarLayout= (LinearLayout)this.findViewById(R.id.postpage_tab_bar);
+            tabBarLayout.setVisibility(LinearLayout.GONE);
+            ScrollView searchScroll = (ScrollView)this.findViewById(R.id.postpage_scrollView);
+            searchScroll.setMinimumHeight(500);
+        }
     }
 
     public Person setCreaterInfo(String personID) {
@@ -277,5 +301,48 @@ public class PostPage extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+    }
+
+    public void redirectToProfile(View view){
+        Intent intent = new Intent(this, MyProfile.class);
+        startActivity(intent);
+    }
+
+    public void redirectToCreatePost(View view){
+        Intent intent = new Intent(this, PostActivity.class);
+        startActivity(intent);
+    }
+
+    public void redirectToHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void redirectToSearch(View view){
+        Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
+
+    public void logout(View view){
+        showDialog(PostPage.this, "Logout Warning", "Are you going to log out?");
+    }
+
+    public void showDialog(final Activity activity, String title, CharSequence message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        if (title != null) builder.setTitle(title);
+
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                SharedPreferences preferences = getSharedPreferences("MyPrefs", 0);
+                preferences.edit().clear().commit();
+
+                Intent in=new Intent(activity, MainActivity.class);
+                activity.startActivity(in);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 }
